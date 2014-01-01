@@ -12,26 +12,22 @@
 	<head>
     	<title>Login - Project Portal</title>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="css/login-styles.css" rel="stylesheet" type="text/css">
         
     </head>
 	<body>
     	<div id="login-box">
-        	<div id="header">
-            	<h2>Login to Project Portal</h2>
-            </div>
             <div id="login-form">
-            	<form id="loginform" method="post" onSubmit="return validate();" action="">
-                	<div class="input-group">
-                    	<span class="input-group-addon glyphicon glyphicon-user"></span>                  
-                    	<input type="text" name="username" class="form-control" placeholder="Username">
-                    </div>
-                    <div class="input-group">
-                    	<span class="input-group-addon glyphicon glyphicon-eye-open"></span>
-                    	<input type="password" name="password" class="form-control" placeholder="Password">
-                    </div>
-                    <div class="btn btn-xs">
-                    	<input type="submit" value="Login"/>
-                    </div>
+            	<form id="login" method="post" action="" onSubmit="return validate();">
+                    <h1>Project Portal</h1>
+                    <fieldset id="inputs">
+                        <input id="username" type="text" placeholder="Username" autofocus required>   
+                        <input id="password" type="password" placeholder="Password" required>
+                    </fieldset>
+                    <fieldset id="actions">
+                        <input type="submit" id="submit" value="Log in">
+                        <a href="">Forgot your password?</a><a href="">Register</a>
+                    </fieldset>
                 </form>
             </div>
         </div>
