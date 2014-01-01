@@ -7,7 +7,7 @@
 		$pass1 = strip_tags(stripslashes(trim($_POST['pass1'])));
 		$pass2 = strip_tags(stripslashes(trim($_POST['pass2'])));
 		
-		query = "insert into users values '$'"
+
 	}
 	
 ?>
@@ -28,32 +28,39 @@
 				return true;
 			}
 		</script>
-    
+    	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="css/signup-styles.css" rel="stylesheet" type="text/css" media="screen">
     </head>
     <body>
     	<div id="signup-div">
-        	<h2>Sign up for Project Portal</h2>
-        	<form id="signup-form" method="post" action="" onSubmit="return validate();">
-            	<table>
-                	<tr>
-                    	<td>Firstname</td><td><input type="text" name="firstname"/></td>
-                    </tr>
-                    <tr>
-                    	<td>Last Name</td><td><input type="text" name="lastname"/></td>
-                    </tr>
-                    <tr>
-                    	<td>Email</td><td><input type="text" name="email"/></td>
-                    </tr>
-                    <tr>
-                    	<td>Password</td><td><input type="text" name="pass1"/></td>
-                    </tr>
-                    <tr>
-                    	<td>Retype Password</td><td><input type="password" name="pass2"/></td><br>
-                    </tr>
-                    <tr>
-                    	<td><input type="submit" value="Submit"/></td>
-                    </tr>
-                </table>
+        	<div id="header-line"><h3>Learn by doing...Let's Sign up!</h3>
+        	</div>
+			<form id="signup-form" method="post" action="" onSubmit="return validate();">
+            	<div class="form-group input-style">
+                  <label for="username">Username</label>
+                  <input name="username" type="text" class="form-control" placeholder="Username">
+                </div>
+                <div class="form-group input-style">
+                  <label for="password1">Password</label>
+                  <input name="password1" type="password" class="form-control" placeholder="Password">
+                </div>
+                <div class="form-group input-style">
+                  <label for="password2">Retype Password</label>
+                  <input name="password2" type="password" class="form-control" placeholder="Retype Password">
+                </div>
+                <div class="form-group input-style">
+                  <label for="firstname">First name</label>
+                  <input name="firstname" type="text" class="form-control" placeholder="Firstname">
+                </div>
+                <div class="form-group input-style">
+                  <label for="lastname">Last name</label>
+                  <input name="lastname" type="text" class="form-control" placeholder="Lastname">
+                </div>
+                <div class="form-group input-style">
+                  <label for="email">CSE Email address</label>
+                  <input name="email" type="text" class="form-control" placeholder="Email">
+				</div>
+				<button class="btn btn-info btn-lg" type="submit">Sign up</button>
             </form>
         </div>
     </body>

@@ -141,7 +141,7 @@ fieldset
 /*--------------------*/
 #actions
 {
-    margin: 25px 0 0 0;
+    margin: 15px 0 0 0;
 }
 
 #submit
@@ -168,7 +168,8 @@ fieldset
     border-style: solid;
     border-color: #d69e31 #e3a037 #d5982d #e3a037;
 
-    float: left;
+    margin:5px;
+	float:left;
     height: 35px;
     padding: 0;
     width: 120px;

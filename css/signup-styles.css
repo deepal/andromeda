@@ -1,0 +1,35 @@
+#signup-div{
+	background-color:rgba(204,204,204,0.2);	
+	width:600px;
+	margin:20px auto;
+	padding-bottom:10px;
+	padding-top:20px;
+	border-radius:15px 100px 15px;
+	-webkit-border-radius: 15px 100px 15px;
+	-moz-border-radius: 15px 100px 15px;
+}
+
+#header-line	{
+	width:500px;
+	margin:0 auto;
+	clear:both;
+}
+
+#header-line h3{
+	margin-left:90px;
+}
+
+#signup-form{
+	width:500px;
+	margin:20px auto;
+	padding:5px auto;	
+}
+
+[type=submit]{
+	margin:10px 210px;
+	padding:5px;	
+}
+
+body{
+	background-image:url(../images/graphic-white-grid-wallppaer-for-graphic.jpg);
+}	

@@ -1,12 +1,16 @@
 <!doctype html>
 <?php
-	if(isset($_POST['username']) && isset($_POST['password'])){
-		$con = mysql_connect('localhost','root','','projectportal');
-		$username = strip_tags(stripslashes(trim($_POST['username'])));
-		$password = strip_tags(stripcslashes($_POST['password']));
-		echo $username;
-		echo "<br>".$password;
-	}
+			if(isset($_POST['username']) && isset($_POST['password']) && !isset($_COOKIE['sessid'])){
+				$con = mysql_connect('localhost','root','','projectportal');
+				$username = strip_tags(stripslashes(trim($_POST['username'])));
+				$password = strip_tags(stripcslashes($_POST['password']));
+				
+				setcookie("sessid","1",time()+60*60*24,"/");
+				header("location:index.php");
+			}
+			else{
+				header("location:index.php");	
+			}
 ?>
 <html>
 	<head>
@@ -16,20 +20,18 @@
         
     </head>
 	<body>
-    	<div id="login-box">
             <div id="login-form">
             	<form id="login" method="post" action="" onSubmit="return validate();">
                     <h1>Project Portal</h1>
                     <fieldset id="inputs">
-                        <input id="username" type="text" placeholder="Username" autofocus required>   
-                        <input id="password" type="password" placeholder="Password" required>
+                        <input id="username" name="username" type="text" placeholder="Username" autofocus required>   
+                        <input id="password" name="password" type="password" placeholder="Password" required>
                     </fieldset>
                     <fieldset id="actions">
-                        <input type="submit" id="submit" value="Log in">
-                        <a href="">Forgot your password?</a><a href="">Register</a>
+                        <input type="submit" id="submit" value="Login">
+                        <a href="">Forgot your password?</a><a href="signup.php">Register</a>
                     </fieldset>
                 </form>
             </div>
-        </div>
     </body>
 </html>
