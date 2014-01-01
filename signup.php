@@ -1,14 +1,45 @@
 <!doctype html>
 <?php
-	if(isset($_POST['email']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['pass1']) && isset($_POST['pass2'])){
+	function validatePassword($pass1,$pass2){
+		if($pass1==$pass2){
+			$pass1 = md5($pass1.time());
+			return $pass1;	
+		}
+		else{
+			return false;	
+		}
+	}
+	
+	if(isset($_POST['email']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['password1']) && isset($_POST['password2']) && isset($_POST['username'])){
 		$email = strip_tags(stripslashes(trim($_POST['email'])));
 		$firstname = strip_tags(stripslashes(trim($_POST['firstname'])));
 		$lastname = strip_tags(stripslashes(trim($_POST['lastname'])));
-		$pass1 = strip_tags(stripslashes(trim($_POST['pass1'])));
-		$pass2 = strip_tags(stripslashes(trim($_POST['pass2'])));
-		
+		$pass1 = strip_tags(stripslashes(trim($_POST['password1'])));
+		$pass2 = strip_tags(stripslashes(trim($_POST['password2'])));
+		$username = strip_tags(stripslashes(trim($_POST['username'])));
 
+		$con = mysqli_connect("localhost","root","","projectportal-bootstrap") or die("could not connect!");
+		$pass1 = validatePassword($pass1,$pass2);
+		if($pass1 != false){
+			$str = "insert into users values ('','$username','$pass1','$firstname','$lastname','$email','".time()."')";
+			echo $str;
+			if(!mysqli_query($con,$str)){
+				header("location:error.php");
+			}
+			else{
+				mysqli_close($con);
+				header("location:login.php");
+			}
+		}
+		else{
+			echo "<script>alert(\"Passwords do not match !!\")</script>";
+		}
+		
 	}
+	else{
+		echo "All fields need to be filled!";
+	}
+	
 	
 ?>
 <html>
