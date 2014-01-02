@@ -1,7 +1,15 @@
 <!doctype html>
 <?php
+
+	session_start();
+	echo session_id();
+	if(isset($_SESSION['user'])){
+		header('location:index.php');
+	}
+	
 	class DBConnection{
 		private $con;
+		private $userdata, $result;
 		
 		public function connect(){
 			$this->con = new mysqli("localhost","root","","projectportal-bootstrap");
@@ -20,8 +28,8 @@
 			}
 			$stmt->bind_param('ss',$username,$hashpass);
 			$stmt->execute();
-			
-			return $stmt->get_result();
+			$this->result = $stmt->get_result();
+			return $this->result;
 		}
 		
 		private function getUserTimestamp($username){
@@ -42,24 +50,48 @@
 			#echo $timestamp;
 			return $timestamp;
 		}
+		
+		public function getUserData($result){
+			$userdata = $result->fetch_assoc();
+			return $userdata;
+		}
+		
+		
+		
 
 	}
+	
+	class Sessions{
+		public static function setSessionState($userdata){
+			unset($userdata['password']);
+			unset($userdata['timestamp']);
+			$_SESSION['user']=$userdata;
+		}
+	}
+	
 	if(isset($_POST['username']) && isset($_POST['password'])){
 		$dbcon = new DBConnection();
 		$dbcon->connect();
-		#$username = $_POST['username'];
 		$username= strip_tags(stripslashes(trim($_POST['username'])));
-		#$password = $_POST['password'];
 		$password = strip_tags(stripcslashes($_POST['password']));
 		echo "<script>alert($username);</script>";
 		$result = $dbcon->getUser($username,$password);
-		while ($row = $result->fetch_assoc()) {
-			#echo "DOne!";
-			#setcookie("sessid","1",time()+60*60*24,"/");
-			session_start();
-			header("location:index.php");
+		if(mysqli_num_rows($result)==1){
+			$user = $dbcon->getUserData($result);
+			if(isset($user)){
+				Sessions::setSessionState($user);
+				header("location:index.php");
+			}
+			else{
+				echo "user variable is not set!!!";
+			}
 		}
-	
+		else if(mysqli_num_rows($result)==0){
+			echo "Login error! Username or Password incorrect!";
+		}
+		else{
+			die("Unknown Error occured!");
+		}
 	}
 
 ?>

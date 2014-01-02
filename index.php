@@ -1,16 +1,21 @@
-<!doctype html/>
-<?php
-	
+<?php 
+
+	session_start();
+	echo session_id()."<br>";
+	if(isset($_SESSION['user'])){
+		print_r($_SESSION['user']);
+	}
+	else{
+		echo "session variable not set";
+	}
 ?>
 
 <html>
-	<head>
-    	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="screen">
-        <link href="css/bootstrap-theme.css" rel="stylesheet" type="text/css" media="screen">
-    </head>
-    <body>
-    	<a href="<?php session_destroy();header("location:login.php")?>";
-    </body>	
+	<head><title>Home</title></head>
+	<body>
+		<a href="<?php session_destroy();?>">Logout</a>
+	</body>
 </html>
+
 
 

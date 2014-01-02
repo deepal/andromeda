@@ -24,6 +24,7 @@
 			$str = "insert into users values ('','$username','$pass1','$firstname','$lastname','$email','".time()."')";
 			echo $str;
 			if(!mysqli_query($con,$str)){
+				#echo mysqli_error($con);
 				header("location:error.php");
 			}
 			else{
@@ -63,7 +64,7 @@
         <link href="css/signup-styles.css" rel="stylesheet" type="text/css" media="screen">
     </head>
     <body>
-    	<div id="signup-div">
+    	<div class="signup-div">
         	<div id="header-line"><h3>Learn by doing...Let's Sign up!</h3>
         	</div>
 			<form id="signup-form" method="post" action="" onSubmit="return validate();">
