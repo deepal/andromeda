@@ -2,6 +2,9 @@
 <?php
 
 	session_start();
+	
+	require_once 'config/portalconfig.php';
+	
 	echo session_id();
 	if(isset($_SESSION['user'])){
 		header('location:index.php');
@@ -80,6 +83,7 @@
 			$user = $dbcon->getUserData($result);
 			if(isset($user)){
 				Sessions::setSessionState($user);
+				session_commit();
 				header("location:index.php");
 			}
 			else{
