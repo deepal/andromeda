@@ -1,0 +1,39 @@
+.nav-panel-custom{
+	width:auto;
+	padding:2px 5px;
+}
+
+.sidebar-custom{
+	/*height:200px;
+	border:1px solid black;*/
+	padding:0px 3px;
+}
+
+.contents-custom{
+	/*height:200px;
+	border:1px solid black;*/
+	padding:5px 3px;
+}
+
+#wrapper{
+	padding: 0 20px;
+}
+
+.btn-dropdown{
+	margin:2px 0;
+}
+
+.btn-dropdown-item{
+	color:#6E6E6E;
+	font-size: 85%;
+}
+
+.collapse-div{
+	border-bottom:1px solid #D4D4D4;
+}
+
+.logo-text{
+	font-size: 250%;
+	font-weight: bold;
+	font-family: cursivel;
+}

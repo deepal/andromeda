@@ -10,6 +10,9 @@
 }
 
 
+#wrapper{
+	padding: 0 15px;
+}
 
 #header-line	{
 	width:500px;
