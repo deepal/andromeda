@@ -83,12 +83,42 @@
 					</div>
 		        </div>
 			        
-			    <div id="contents" class="col-xs-12 col-sm-9 col-md-10 col-lg-10 contents-custom">
-			        aaaaaaaaaa
+			    <div id="project-listing" class="col-xs-12 col-sm-9 col-md-10 col-lg-10 contents-custom">
+			    	<div id="control-panel">
+			    		<div class="btn-group sortlist">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								Sort <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Separated link</a></li>
+							</ul>
+						</div>
+			    		<form class="form-inline searchform" method="get" role="form" action="">
+			    			<div class="form-group">
+			    				<input type="text" class="form-control" name="search-q" placeholder="Search">
+			    			</div>
+			    			<div class="form-group">
+			    				<button type="submit" class="btn btn-default">Go</button>
+			    			</div>
+			    		</form>
+			    		
+			    	</div>
+			        <div id="projectlist" class="panel panel-default">
+			        	<div class="panel-heading">
+				        	<h2 class="panel-title panel-title-custom">Recent Project Ideas</h2>				        	
+			        	</div>
+			        	
+			        	<div class="panel-body panel-body-custom">
+			        		sdfsdf
+			        	</div>
+			        </div>
 			    </div>
 			</div>
         </div>
-
         
         <div id="footer">
         

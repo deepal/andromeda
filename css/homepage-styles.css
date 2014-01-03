@@ -1,6 +1,6 @@
 .nav-panel-custom{
 	width:auto;
-	padding:2px 5px;
+	padding:0px 5px;
 }
 
 .sidebar-custom{
@@ -36,4 +36,35 @@
 	font-size: 250%;
 	font-weight: bold;
 	font-family: cursivel;
+}
+
+.searchform{
+	float:right;
+}
+
+#control-panel{
+	clear:both;
+	height:33px;
+	margin-bottom:5px;
+}
+
+#projectlist{
+	clear:both;
+}
+
+#panelheader{
+	list-style: none;
+}
+
+.sortlist{
+	float:right;
+	margin-left:5px;
+}
+
+.panel-title-custom{
+
+}
+
+.panel-body-custom{
+	clear:both;
 }
