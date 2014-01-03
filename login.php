@@ -7,7 +7,7 @@
 	
 	echo session_id();
 	if(isset($_SESSION['user'])){
-		header('location:index.php');
+		header('location:home.php');
 	}
 	
 	class DBConnection{
@@ -84,7 +84,7 @@
 			if(isset($user)){
 				Sessions::setSessionState($user);
 				session_commit();
-				header("location:index.php");
+				header("location:home.php");
 			}
 			else{
 				echo "user variable is not set!!!";
