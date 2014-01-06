@@ -128,48 +128,41 @@
             <button id="sortbutton" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-sort"></span>&nbsp&nbsp<span class="caret"></span> </button>
             <ul class="dropdown-menu pull-right" role="menu">
             <?php 
-            	echo "<li><a href='".$_SERVER['PHP_SELF']."?";
+				
+				if(!isset($_GET['sort'])){
+					$_GET['sort']='mr';	
+				}
+			
 				$params="";
 				foreach ($_GET as $var=>$val){
-					if ($var != 'sort') {
-						$params=$params.$var."=".$val."&&sort=mr";
-					}
-					else{
+					if ($var == 'sort'){
 						$val='mr';
-						$params=$params.$var."=".$val."&&";
 					}
+					$params=$params.$var."=".$val."&&";
 				}	
-				echo $params."'><span class='glyphicon glyphicon-fire'></span>&nbsp;&nbsp;Most recent</a></li>";
+				echo "<li><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-fire'></span>&nbsp;&nbsp;Most recent</a></li>";
 			
 				
 				
-				echo "<li><a href='".$_SERVER['PHP_SELF']."?";
 				$params="";
 				foreach ($_GET as $var=>$val){
-						if ($var != 'sort') {
-							$params=$params.$var."=".$val."&&sort=tr";
-						}
-						else{
+						if ($var == 'sort') {
 							$val='tr';
-							$params=$params.$var."=".$val."&&";
 						}
+						$params=$params.$var."=".$val."&&";
 				}
-				echo $params."'><span class='glyphicon glyphicon-star'></span>&nbsp;&nbsp;Top rated</a></li>";
+				echo "<li><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-star'></span>&nbsp;&nbsp;Top rated</a></li>";
 				
 				
 				
-				echo "<li><a href='".$_SERVER['PHP_SELF']."?";
 				$params="";
 				foreach ($_GET as $var=>$val){
-					if ($var != 'sort') {
-						$params=$params.$var."=".$val."&&sort=mv";
-					}
-					else{
+					if ($var == 'sort') {
 						$val='mv';
-						$params=$params.$var."=".$val."&&";
 					}
+					$params=$params.$var."=".$val."&&";
 				}
-				echo $params."'><span class='glyphicon glyphicon-eye-open'></span>&nbsp;&nbsp;Most Viewed</a></li>";
+				echo "<li><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-eye-open'></span>&nbsp;&nbsp;Most Viewed</a></li>";
               
               ?>
             </ul>
@@ -270,7 +263,7 @@
 									$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_votes desc";
 								}
 								else{
-									$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
+									$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_votes desc";
 							
 								}
 							}
@@ -280,7 +273,7 @@
 									$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_views desc";
 								}
 								else{
-									$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
+									$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_views desc";
 							
 								}
 							}
@@ -299,6 +292,38 @@
 						
 					}
 					else{
+						
+						if(isset($_GET['sort'])){
+							
+							if ($_GET['sort']=='mr') {
+								$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
+									
+								}
+								
+							if ($_GET['sort']=='tr') {
+								$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_votes desc";
+								
+								}
+								
+							if ($_GET['sort']=='mv') {
+								$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_views desc";
+								
+								}	
+						}
+						else{
+							$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
+								
+						}
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 						$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";	
 					}
 					$pres = mysqli_query($con,$query) or die(mysqli_error($con));

@@ -3,9 +3,11 @@
 				$params="";
             	foreach ($_GET as $var=>$val){
 					if ($var != 'sort') {
+						
 						$params=$params.$var."=".$val."&&";
 					}
 					else{
+						echo "Sort found K<br>";
 						$val='mr';
 						$params=$params.$var."=".$val."&&";
 					}
