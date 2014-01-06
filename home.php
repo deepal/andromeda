@@ -354,7 +354,7 @@
 								
 								//
 								echo "<td>".$no."</td>";
-								echo "<td><a data-toggle='collapse' data-parent='' href='#collapse".$no."'>".$row['p_name']."<div id='collapse".$no."' class='panel-collapse collapse link-custom'></a><div class='panel-body collapsed-project-description'>".nl2br($row['p_desc'])."</div></div></td>";
+								echo "<td><a data-toggle='collapse' data-parent='' href='#collapse".$no."'>".$row['p_name']."<div id='collapse".$no."' class='panel-collapse collapse link-custom'></a><div class='panel-body collapsed-project-description well well-lg'>".nl2br(substr($row['p_desc'],0,300))." .... "."</div></div></td>";
 								
 								echo "<td>".$row['cat_name']."</td>";
 								echo "<td>";	
