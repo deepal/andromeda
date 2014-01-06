@@ -24,8 +24,8 @@
 			$str = "insert into users values ('','$username','$pass1','$firstname','$lastname','$email','".time()."')";
 			echo $str;
 			if(!mysqli_query($con,$str)){
-				#echo mysqli_error($con);
-				header("location:error.php");
+				echo mysqli_error($con);
+				#header("location:error.php");
 			}
 			else{
 				mysqli_close($con);
