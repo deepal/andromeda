@@ -22,13 +22,19 @@
 <script src="js/toastr.js" type="text/javascript"></script>
 </head>
 <body onLoad="document.getElementById('search-q').focus();">
-	<?php
+<?php
         if(isset($_SESSION['add-project']) && $_SESSION['add-project']=="success"){
             echo "<script>toastr.success('Project Idea has been published successfully!','Success');</script>";
             unset($_SESSION['add-project']);	
         }
+		
+		if(isset($_SESSION['results']) && $_SESSION['results']=="none"){
+			
+			//disable sorting menu items since there is nothing to display or sort
+			
+            unset($_SESSION['results']);	
+        }
     ?>
-	
 <div id="header-panel">
   <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="#"><span>PROJECT PORTAL</span></a>
     <ul class="nav navbar-nav navbar-right">
@@ -122,11 +128,10 @@
               <button type="submit" class="btn btn-default btn-primary btn-sm sortlist"><span class="glyphicon glyphicon-search"></span></button>
             </div>
           </div>
-          
         </form>
         <div class="btn-group sortlist">
-            <button id="sortbutton" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-sort"></span>&nbsp&nbsp<span class="caret"></span> </button>
-            <ul class="dropdown-menu pull-right" role="menu">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-sort"></span>&nbsp;&nbsp;Sort&nbsp;&nbsp;<span class="caret"></span> </button>
+          <ul class="dropdown-menu pull-right" role="menu">
             <?php 
 				
 				if(!isset($_GET['sort'])){
@@ -140,7 +145,7 @@
 					}
 					$params=$params.$var."=".$val."&&";
 				}	
-				echo "<li><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-fire'></span>&nbsp;&nbsp;Most recent</a></li>";
+				echo "<li id='sort1'><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-fire'></span>&nbsp;&nbsp;Most recent</a></li>";
 			
 				
 				
@@ -151,7 +156,7 @@
 						}
 						$params=$params.$var."=".$val."&&";
 				}
-				echo "<li><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-star'></span>&nbsp;&nbsp;Top rated</a></li>";
+				echo "<li id='sort2'><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-star'></span>&nbsp;&nbsp;Top rated</a></li>";
 				
 				
 				
@@ -162,11 +167,11 @@
 					}
 					$params=$params.$var."=".$val."&&";
 				}
-				echo "<li><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-eye-open'></span>&nbsp;&nbsp;Most Viewed</a></li>";
+				echo "<li id='sort3'><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-eye-open'></span>&nbsp;&nbsp;Most Viewed</a></li>";
               
               ?>
-            </ul>
-          </div>
+          </ul>
+        </div>
       </div>
       <div class="modal fade" id="projectidea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -221,9 +226,7 @@
         <div class="panel-heading">
           <h2 class="panel-title panel-title-custom">Recent Project Ideas</h2>
         </div>
-        
-        <div class="panel-body panel-body-custom">
-        	<span id="notice"></span>
+        <div class="panel-body panel-body-custom"> <span id="notice"></span>
           <table id="projects-table" class="table-responsive" cellspacing='0'>
             <!-- cellspacing='0' is important, must stay --> 
             
@@ -242,7 +245,6 @@
             
             <!-- Table Body -->
             <tbody>
-            
               <?php
 					#$no=1;
 					if(isset($_GET['search-q'])){
@@ -250,44 +252,44 @@
 						if(isset($_GET['sort'])){
 							if ($_GET['sort']=='mr') {
 								if($sq!=""){
-									$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_post_date desc";
+									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_post_date desc";
 								}
 								else{
-									$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
+									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
 								
 								}
 							}
 							
 							if ($_GET['sort']=='tr') {
 								if($sq!=""){
-									$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_votes desc";
+									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_votes desc";
 								}
 								else{
-									$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_votes desc";
+									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_votes desc";
 							
 								}
 							}
 							
 							if ($_GET['sort']=='mv') {
 								if($sq!=""){
-									$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_views desc";
+									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_views desc";
 								}
 								else{
-									$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_views desc";
+									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_views desc";
 							
 								}
 							}
 							
 						}
-						else{
+/*						else{
 							if($sq!=""){
-								$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_post_date desc";
+								$query = "77777777777777select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_post_date desc";
 							}
 							else{
-								$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
+								$query = "888888888888select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
 							
 							}
-						}
+						}*/
 						
 						
 					}
@@ -296,35 +298,27 @@
 						if(isset($_GET['sort'])){
 							
 							if ($_GET['sort']=='mr') {
-								$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
+								$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
 									
 								}
 								
 							if ($_GET['sort']=='tr') {
-								$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_votes desc";
+								$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_votes desc";
 								
 								}
 								
 							if ($_GET['sort']=='mv') {
-								$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_views desc";
+								$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_views desc";
 								
 								}	
 						}
 						else{
-							$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
+							$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
 								
 						}
 						
 						
-						
-						
-						
-						
-						
-						
-						
-						
-						$query = "select p_id,p_name,cat_name,firstname,lastname,p_post_date from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";	
+						//$query = "14141414141414select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";	
 					}
 					$pres = mysqli_query($con,$query) or die(mysqli_error($con));
 					$rowcount = mysqli_num_rows($pres);
@@ -360,7 +354,8 @@
 								
 								//
 								echo "<td>".$no."</td>";
-								echo "<td><a href=''>".$row['p_name']."</a></td>";
+								echo "<td><a data-toggle='collapse' data-parent='' href='#collapse".$no."'>".$row['p_name']."<div id='collapse".$no."' class='panel-collapse collapse link-custom'></a><div class='panel-body collapsed-project-description'>".nl2br($row['p_desc'])."</div></div></td>";
+								
 								echo "<td>".$row['cat_name']."</td>";
 								echo "<td>";	
 								$tagcount = mysqli_num_rows($tagres);
@@ -387,6 +382,7 @@
 					}
 					else{
 						echo "<script>showAlert();</script>";
+						$_SESSION['results']='none';
 					}
 					
 				?>
@@ -394,9 +390,14 @@
             <!-- Table Body -->
             
           </table>
+          
+          
+          
+    
+    
           <div id="pagelist">
-                <div>
-                	<?php
+            <div>
+              <?php
 						if($rowcount>MAX_NO_PER_PAGE){
 							$pagescount = intval(ceil(($rowcount/MAX_NO_PER_PAGE)));
 							echo "<ul class=\"pagination\">";
@@ -454,19 +455,16 @@
 						}
 							
 					?>
-                	
-                
-                	<!--
+              
+              <!--
                     <ul class="pagination">
                       <li class="disabled"><a href="#">&laquo;</a></li>
                       <!--<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li> --><!--
                       <li class="disabled"><a href="#">&raquo;</a></li> 
-                    </ul>      -->
-                </div>
-            </div> 
+                    </ul>      --> 
+            </div>
+          </div>
         </div>
-          
-        
       </div>
     </div>
   </div>
