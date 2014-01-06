@@ -1,22 +1,45 @@
-<?php
-
-?>
-<html>
-	<head>
-		<link href="css/bootstrap.css" rel="stylesheet" media="screen" type="text/css">
-		<link href="css/homepage-styles.css" media="screen" rel="stylesheet" type="text/css">
-		<link href="css/toastr.css" media="screen" rel="stylesheet" type="text/css">
-		
-	</head>
-	<body>
-		
-		<script src="js/bootstrap-popover.js" type="text/javascript"></script>
-		<script src="js/bootstrap.js" type="text/javascript"></script>
-		<a id="example" href="#" class="btn btn-lg btn-danger" data-toggle="popover" title="" data-content="And here's some amazing content. It's very engaging. right?" role="button" data-original-title="A Title">Click to toggle popover
-			<script type="text/javascript">
-				
-			</script>
-		</a>
+<?php 
+            	echo $_SERVER['PHP_SELF']."?";
+				$params="";
+            	foreach ($_GET as $var=>$val){
+					if ($var != 'sort') {
+						$params=$params.$var."=".$val."&&";
+					}
+					else{
+						$val='mr';
+						$params=$params.$var."=".$val."&&";
+					}
+				}	
+				echo $params."<br>";
 			
-	</body>
-</html>
+				
+				
+				echo $_SERVER['PHP_SELF']."?";
+				$params="";
+				foreach ($_GET as $var=>$val){
+						if ($var != 'sort') {
+							$params=$params.$var."=".$val."&&";
+						}
+						else{
+							$val='tr';
+							$params=$params.$var."=".$val."&&";
+						}
+				}
+				echo $params."<br>";
+				
+				
+				
+				echo $_SERVER['PHP_SELF']."?";
+				$params="";
+				foreach ($_GET as $var=>$val){
+					if ($var != 'sort') {
+						$params=$params.$var."=".$val."&&";
+					}
+					else{
+						$val='mv';
+						$params=$params.$var."=".$val."&&";
+					}
+				}
+				echo $params."<br>";
+              
+              ?>
