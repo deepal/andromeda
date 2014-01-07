@@ -14,7 +14,7 @@
 	
 	$con = $dbcon->connect();
 	
-	if(!$stmt = $con->prepare("INSERT INTO projects VALUES ('',?,?,?,?,'0','0',CURRENT_TIMESTAMP(),'0')")){
+	if(!$stmt = $con->prepare("INSERT INTO projects VALUES ('',?,?,?,?,'0','0',CURRENT_TIMESTAMP(),'0','0','0')")){
 		die(mysqli_error($con));	
 	}
 	$stmt->bind_param('ssii',$projecttitle,$projectdesc,$projectcatagory,$projectauthor);

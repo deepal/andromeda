@@ -354,7 +354,18 @@
 								
 								//
 								echo "<td>".$no."</td>";
-								echo "<td><a data-toggle='collapse' data-parent='' href='#collapse".$no."'>".$row['p_name']."<div id='collapse".$no."' class='panel-collapse collapse link-custom'></a><div class='panel-body collapsed-project-description well well-lg'>".nl2br(substr($row['p_desc'],0,300))." .... "."</div></div></td>";
+								echo "<td><a data-toggle='collapse' data-parent='' href='#collapse".$no."'>".$row['p_name']."<div id='collapse".$no.
+								"' class='panel-collapse collapse link-custom'></a><div class='panel-body collapsed-project-description well well-lg'>".nl2br(substr($row['p_desc'],0,300)).
+								" .... <br>".
+								"<div class='bottom-panel'>".
+								"<div class='bottom-panel-desc-left'>".
+									"<span class='bottom-panel-desc-votes'><span class='votes'><span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;".$row['p_votes']."</span></span>".
+									"<span class='bottom-panel-desc-views'><span class='views'><span class='glyphicon glyphicon-eye-open'></span>&nbsp;".$row['p_views']."</span></span>".
+								"</div>".
+								
+								"<div class='bottom-panel-desc-right'>".
+									"<a href='viewproject.php"."?pid=".$row['p_id']."' class='button pill'>Read more &raquo;</a>".
+								"</div></div></div></div></td>";
 								
 								echo "<td>".$row['cat_name']."</td>";
 								echo "<td>";	
@@ -391,7 +402,35 @@
             
           </table>
           
-          
+          <script type="text/javascript">
+
+          $(document).ready(function() {
+        	    /* create a node for the flip-to number */
+        	    $(".votecard em").clone().appendTo(".votecard div");
+        	    /* increment that by 1 */
+        	    var node = $(".votecard em:last strong")
+        	    node.text(parseInt(node.text())+1);
+        	 
+        	    function flip(obj) {
+        	        obj.prev().find("em").animate({
+        	            top: '-=45'
+        	        }, 200);
+        	        obj.toggleClass("voted",true);
+        	    }
+        	 
+        	    $('.voteaction').bind({
+        	      click: function(event) {
+        	        event.preventDefault()
+        	      },
+        	      mouseup: function() {
+        	        flip($(this));
+        	        $(this).unbind('mouseup');
+        	      }
+        	    });
+        	 
+        	});
+			
+          </script>
           
     
     
