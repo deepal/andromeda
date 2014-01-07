@@ -36,7 +36,7 @@
         }
     ?>
 <div id="header-panel">
-  <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="#"><span>PROJECT PORTAL</span></a>
+  <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="home.php"><span>PROJECT PORTAL</span></a>
     <ul class="nav navbar-nav navbar-right">
       <li>
         <ul class="nav nav-pills notifications">
@@ -86,15 +86,15 @@
         <button type="button" class="btn btn-primary btn-block btn-dropdown" data-toggle="collapse" data-target="#home-link"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;Home</button>
         <div id="home-link" class="collapse in">
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
-            <li><a class="btn-dropdown-item" href="#">News Feed</a></li>
-            <li><a class="btn-dropdown-item" href="#">My Projects</a></li>
-            <li><a class="btn-dropdown-item" href="#">Archievements</a></li>
+            <li><a class="btn-dropdown-item" href="index.php">News Feed</a></li>
+            <li><a class="btn-dropdown-item" href="myhome.php">My Projects</a></li>
+            <li><a class="btn-dropdown-item" href="viewarch.php">Archievements</a></li>
           </ul>
         </div>
         <button type="button" class="btn btn-success btn-block btn-dropdown" data-toggle="collapse" data-target="#projects"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Projects</button>
         <div id="projects" class="collapse in">
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
-            <li><a class="btn-dropdown-item" href="#">New Project Ideas</a></li>
+            <li><a class="btn-dropdown-item" href="home.php">New Project Ideas</a></li>
             <li><a class="btn-dropdown-item" href="#">Ongoing Projects</a></li>
           </ul>
         </div>
@@ -252,7 +252,7 @@
 						if(isset($_GET['sort'])){
 							if ($_GET['sort']=='mr') {
 								if($sq!=""){
-									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_post_date desc";
+									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like ? union select projects.p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag = ? order by p_post_date desc";
 								}
 								else{
 									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";
@@ -262,7 +262,7 @@
 							
 							if ($_GET['sort']=='tr') {
 								if($sq!=""){
-									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_votes desc";
+									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like ? union select projects.p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag= ? order by p_votes desc";
 								}
 								else{
 									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_votes desc";
@@ -272,7 +272,7 @@
 							
 							if ($_GET['sort']=='mv') {
 								if($sq!=""){
-									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like '%".$sq."%' union select projects.p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag='".$sq."' order by p_views desc";
+									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author and p_name like ? union select projects.p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,project_tags,catagories,users where p_catagory=cat_id and user_id=p_author and projects.p_id=project_tags.p_id and tag= ? order by p_views desc";
 								}
 								else{
 									$query = "select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date,p_votes,p_views from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_views desc";
@@ -320,7 +320,27 @@
 						
 						//$query = "14141414141414select p_id,p_desc,p_name,cat_name,firstname,lastname,p_post_date from projects,catagories,users where p_catagory=cat_id and user_id=p_author order by p_post_date desc";	
 					}
-					$pres = mysqli_query($con,$query) or die(mysqli_error($con));
+					
+						
+						if(strpos($query,'?')!=false){
+							if(!$stmt=$con->prepare($query)){
+								die("Error occured : ".mysqli_error());
+							}
+							else{
+								$sq1='%'.$sq.'%';
+								$stmt->bind_param('ss',$sq1,$sq) or die("EEEEEE: ".mysqli_error($con));
+								
+								$pres = $stmt->execute();
+								$pres=$stmt->get_result();
+							}
+						}
+						else{
+							$pres = mysqli_query($con,$query) or die(mysqli_error($con));
+						}
+					
+						
+						
+					
 					$rowcount = mysqli_num_rows($pres);
 					//$_GET['page']=2;
 					if(mysqli_num_rows($pres)!=0){
@@ -432,7 +452,7 @@
 			
           </script>
           
-    
+    	
     
           <div id="pagelist">
             <div>
@@ -441,49 +461,96 @@
 							$pagescount = intval(ceil(($rowcount/MAX_NO_PER_PAGE)));
 							echo "<ul class=\"pagination\">";
 							
-							
-							if(isset($_GET['search-q'])){
-								if($_GET['page']<=1){
-									echo "<li class=\"disabled\"><a href=\"#\">&raquo;</a></li>";	
-								}
-								else{
-									echo "<li><a href=\"".$_SERVER['PHP_SELF']."?search-q=".$_GET['search-q']."&&page=".($_GET['page']-1)."\">&laquo;</a></li>";	
-								}
-								for($x=0;$x<$pagescount;$x++){
-									echo "<li ";
-									if(($x+1)==$_GET['page']){
-										echo " class=\"active\"";	
+							if(!isset($_GET['sort'])){     //// $_GET['sort'] is not set
+								if(isset($_GET['search-q'])){
+									if($_GET['page']<=1){
+										echo "<li class=\"disabled\"><a href=\"#\">&raquo;</a></li>";	
 									}
-									echo "><a href=\"".$_SERVER['PHP_SELF']."?search-q=".$_GET['search-q']."&&page=".($x+1)."\">".($x+1)."</a></li>";
+									else{
+										echo "<li><a href=\"".$_SERVER['PHP_SELF']."?search-q=".$_GET['search-q']."&&page=".($_GET['page']-1)."\">&laquo;</a></li>";	
+									}
+									for($x=0;$x<$pagescount;$x++){
+										echo "<li ";
+										if(($x+1)==$_GET['page']){
+											echo " class=\"active\"";	
+										}
+										echo "><a href=\"".$_SERVER['PHP_SELF']."?search-q=".$_GET['search-q']."&&page=".($x+1)."\">".($x+1)."</a></li>";
+									}
+									if($_GET['page']>=$pagescount){
+										echo "<li class=\"disabled\"><a href=\"#\">&raquo;</a></li>";
+									}
+									else{
+										echo "<li><a href=\"".$_SERVER['PHP_SELF']."?search-q=".$_GET['search-q']."&&page=".($_GET['page']+1)."\">&raquo;</a></li>";
+									}
 								}
-								if($_GET['page']>=$pagescount){
-									echo "<li class=\"disabled\"><a href=\"#\">&raquo;</a></li>";
-								}
+								
+								
 								else{
-									echo "<li><a href=\"".$_SERVER['PHP_SELF']."?search-q=".$_GET['search-q']."&&page=".($_GET['page']+1)."\">&raquo;</a></li>";
+									if($_GET['page']<=1){
+										echo "<li class=\"disabled\"><a href=\"#\">&laquo;</a></li>";	
+									}
+									else{
+										echo "<li><a href=\"".$_SERVER['PHP_SELF']."?page=".($_GET['page']-1)."\">&laquo;</a></li>";	
+									}
+									for($x=0;$x<$pagescount;$x++){
+										echo "<li ";
+										if(($x+1)==$_GET['page']){
+											echo " class=\"active\"";	
+										}
+										echo "><a href=\"".$_SERVER['PHP_SELF']."?page=".($x+1)."\">".($x+1)."</a></li>";
+									}
+									if($_GET['page']>=$pagescount){
+										echo "<li class=\"disabled\"><a href=\"#\">&raquo;</a></li>";
+									}
+									else{
+										echo "<li><a href=\"".$_SERVER['PHP_SELF']."?page=".($_GET['page']+1)."\">&raquo;</a></li>";
+									}
 								}
 							}
-							
-							
-							else{
-								if($_GET['page']<=1){
-									echo "<li class=\"disabled\"><a href=\"#\">&laquo;</a></li>";	
-								}
-								else{
-									echo "<li><a href=\"".$_SERVER['PHP_SELF']."?page=".($_GET['page']-1)."\">&laquo;</a></li>";	
-								}
-								for($x=0;$x<$pagescount;$x++){
-									echo "<li ";
-									if(($x+1)==$_GET['page']){
-										echo " class=\"active\"";	
+							else{								// $_GET['sort'] is set
+								if(isset($_GET['search-q'])){
+									if($_GET['page']<=1){
+										echo "<li class=\"disabled\"><a href=\"#\">&raquo;</a></li>";
 									}
-									echo "><a href=\"".$_SERVER['PHP_SELF']."?page=".($x+1)."\">".($x+1)."</a></li>";
+									else{
+										echo "<li><a href=\"".$_SERVER['PHP_SELF']."?search-q=".$_GET['search-q']."&&sort=".$_GET['sort']."&&page=".($_GET['page']-1)."\">&laquo;</a></li>";
+									}
+									for($x=0;$x<$pagescount;$x++){
+										echo "<li ";
+										if(($x+1)==$_GET['page']){
+											echo " class=\"active\"";
+										}
+										echo "><a href=\"".$_SERVER['PHP_SELF']."?search-q=".$_GET['search-q']."&&sort=".$_GET['sort']."&&page=".($x+1)."\">".($x+1)."</a></li>";
+									}
+									if($_GET['page']>=$pagescount){
+										echo "<li class=\"disabled\"><a href=\"#\">&raquo;</a></li>";
+									}
+									else{
+										echo "<li><a href=\"".$_SERVER['PHP_SELF']."?search-q=".$_GET['search-q']."&&sort=".$_GET['sort']."&&page=".($_GET['page']+1)."\">&raquo;</a></li>";
+									}
 								}
-								if($_GET['page']>=$pagescount){
-									echo "<li class=\"disabled\"><a href=\"#\">&raquo;</a></li>";
-								}
+								
+								
 								else{
-									echo "<li><a href=\"".$_SERVER['PHP_SELF']."?page=".($_GET['page']+1)."\">&raquo;</a></li>";
+									if($_GET['page']<=1){
+										echo "<li class=\"disabled\"><a href=\"#\">&laquo;</a></li>";
+									}
+									else{
+										echo "<li><a href=\"".$_SERVER['PHP_SELF']."?sort=".$_GET['sort']."&&page=".($_GET['page']-1)."\">&laquo;</a></li>";
+									}
+									for($x=0;$x<$pagescount;$x++){
+										echo "<li ";
+										if(($x+1)==$_GET['page']){
+											echo " class=\"active\"";
+										}
+										echo "><a href=\"".$_SERVER['PHP_SELF']."?sort=".$_GET['sort']."&&page=".($x+1)."\">".($x+1)."</a></li>";
+									}
+									if($_GET['page']>=$pagescount){
+										echo "<li class=\"disabled\"><a href=\"#\">&raquo;</a></li>";
+									}
+									else{
+										echo "<li><a href=\"".$_SERVER['PHP_SELF']."?sort=".$_GET['sort']."&&page=".($_GET['page']+1)."\">&raquo;</a></li>";
+									}
 								}
 							}
 							

@@ -36,7 +36,7 @@
         }
     ?>
 <div id="header-panel">
-  <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="#"><span>PROJECT PORTAL</span></a>
+  <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="home.php"><span>PROJECT PORTAL</span></a>
     <ul class="nav navbar-nav navbar-right">
       <li>
         <ul class="nav nav-pills notifications">
@@ -86,15 +86,15 @@
         <button type="button" class="btn btn-primary btn-block btn-dropdown" data-toggle="collapse" data-target="#home-link"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;Home</button>
         <div id="home-link" class="collapse in">
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
-            <li><a class="btn-dropdown-item" href="#">News Feed</a></li>
-            <li><a class="btn-dropdown-item" href="#">My Projects</a></li>
-            <li><a class="btn-dropdown-item" href="#">Archievements</a></li>
+            <li><a class="btn-dropdown-item" href="index.php">News Feed</a></li>
+            <li><a class="btn-dropdown-item" href="myhome.php">My Projects</a></li>
+            <li><a class="btn-dropdown-item" href="viewarch.php">Archievements</a></li>
           </ul>
         </div>
         <button type="button" class="btn btn-success btn-block btn-dropdown" data-toggle="collapse" data-target="#projects"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Projects</button>
         <div id="projects" class="collapse in">
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
-            <li><a class="btn-dropdown-item" href="#">New Project Ideas</a></li>
+            <li><a class="btn-dropdown-item" href="home.php">New Project Ideas</a></li>
             <li><a class="btn-dropdown-item" href="#">Ongoing Projects</a></li>
           </ul>
         </div>
@@ -114,11 +114,59 @@
         </div>
       </div>
     </div>
-	
-	<div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 ">
-		test
-	</div>
-	
+    
+    <!-- content start-->
+    <?php 
+    	$pid = $_GET['pid'];
+    	require_once ('config/dbcon.php');
+    	$dbcon = new DBConnection();
+    	$con = $dbcon->connect();
+    	if(!$pstmt=$con->prepare('select * from projects where p_id= ? ')){
+    		die('error creating statement');
+		}
+		else{
+			$pstmt->bind_param('s',$pid);
+			$pstmt->execute();
+			$presult = $pstmt->get_result();
+			$precord = $presult->fetch_assoc();
+		}
+		
+		
+    	
+    
+    ?>
+    <div id="project-details" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom">
+    	
+    	<div id="project-header">
+    		<?php echo $precord['p_name']?>
+    	</div>
+    	
+    	<div id="project-desc">
+    		<?php echo nl2br($precord['p_desc'])?>
+    	
+    	</div>
+    	
+    	<div id="project-footer">
+    		<div id="project-info">
+    			<span id="p-catagory"><?php echo $precord['p_catagory']?></span>
+    			<span id="p-tags"><?php echo "nothing yet"?></span>
+    		</div>
+    		
+    		<div id="project-author">
+    			<div id="author-profile">
+    				<span id="author-name"></span>
+    				<span id="author-email"></span>
+    			</div>
+    		</div>
+    	</div>
+    	
+    	
+    	
+    </div>
+    
+    
+    <!--  content end -->
+    
   </div>
 </div>
 <div id="footer"> </div>
