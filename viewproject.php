@@ -9,8 +9,11 @@
 	
 ?>
 <html>
+<!-- InstanceBegin template="/Templates/home.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
+<!-- InstanceBeginEditable name="doctitle" -->
 <title>Projects - Project Portal</title>
+<!-- InstanceEndEditable -->
 <link href="css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/homepage-styles.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/toastr.css" media="screen" rel="stylesheet" type="text/css">
@@ -20,6 +23,8 @@
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/alert.js"></script>
 <script src="js/toastr.js" type="text/javascript"></script>
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
 </head>
 <body onLoad="document.getElementById('search-q').focus();">
 <?php
@@ -114,61 +119,138 @@
         </div>
       </div>
     </div>
-    
-    <!-- content start-->
-    <?php 
-    	$pid = $_GET['pid'];
-    	require_once ('config/dbcon.php');
-    	$dbcon = new DBConnection();
-    	$con = $dbcon->connect();
-    	if(!$pstmt=$con->prepare('select * from projects where p_id= ? ')){
-    		die('error creating statement');
-		}
-		else{
-			$pstmt->bind_param('s',$pid);
-			$pstmt->execute();
-			$presult = $pstmt->get_result();
-			$precord = $presult->fetch_assoc();
-		}
-		
-		
-    	
-    
-    ?>
-    <div id="project-details" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom">
-    	
-    	<div id="project-header">
-    		<?php echo $precord['p_name']?>
-    	</div>
-    	
-    	<div id="project-desc">
-    		<?php echo nl2br($precord['p_desc'])?>
-    	
-    	</div>
-    	
-    	<div id="project-footer">
-    		<div id="project-info">
-    			<span id="p-catagory"><?php echo $precord['p_catagory']?></span>
-    			<span id="p-tags"><?php echo "nothing yet"?></span>
-    		</div>
-    		
-    		<div id="project-author">
-    			<div id="author-profile">
-    				<span id="author-name"></span>
-    				<span id="author-email"></span>
-    			</div>
-    		</div>
-    	</div>
-    	
-    	
-    	
-    </div>
-    
-    
-    <!--  content end -->
-    
+    <div id="project-listing" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom"> <!-- InstanceBeginEditable name="content-header-panel" -->
+      <div id="control-panel">
+        <div class="form-group suggestproject">
+          <button class="btn btn-success "  data-toggle="modal" data-target="#projectidea"> <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suggest a project idea </button>
+        </div>
+        <form class="form-inline searchform" method="get" role="form" action="home.php">
+          <div class="searchform">
+            <div class="form-group">
+              <input type="text" class="form-control wide400px" id="search-q" name="search-q" placeholder="Search" value="<?php echo isset($_GET['search-q'])? $_GET['search-q']: "";?>">
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-default btn-primary btn-sm sortlist"><span class="glyphicon glyphicon-search"></span></button>
+            </div>
+          </div>
+        </form>
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+      <!-- InstanceEndEditable --> <!-- InstanceBeginEditable name="EditRegion4" -->
+      <div class="modal fade" id="projectidea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Suggest a Project Idea</h4>
+            </div>
+            <form role="form" method="post" action="addproject.php" onSubmit="return validate();">
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="ptitle">Project Title</label>
+                  <input class="form-control" type="text" id="ptitle" name="ptitle">
+                </div>
+                <div class="form-group">
+                  <label for="pdesc">Description</label>
+                  <textarea id="pdesc" name="pdesc" class="form-control" cols="20" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="pcatagory">Catagory</label>
+                  <select id="pcatagory" class="form-control" name="pcatagory">
+                    <option value="" disabled="disabled" selected="selected">Select catagory</option>
+                    <?php
+						require_once("config/dbcon.php");
+						$dbcon = new DBConnection();
+						$con = $dbcon->connect();
+						$res = mysqli_query($con,"select * from catagories order by cat_name");
+						while($row=$res->fetch_assoc()){
+							echo "<option value=\"".$row['cat_id']."\">".$row['cat_name']."</option>";	
+						}
+					?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="ptags">Tags(Seperate each with semicolons)</label>
+                  <input class="form-control" type="text" id="ptags" name="ptags">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.modal-content --> 
+        </div>
+        <!-- /.modal-dialog --> 
+      </div>
+      <!-- /.modal --> 
+      <!-- InstanceEndEditable --><!-- InstanceBeginEditable name="Main-body" -->
+      <div id="projectdetails" class="panel panel-default">
+      <?php
+            if(isset($_GET['pid'])){
+				$pid = $_GET['pid'];
+			}
+			else{
+				
+			}
+            require_once ('config/dbcon.php');
+            $dbcon = new DBConnection();
+            $con = $dbcon->connect();
+            if(!$pstmt=$con->prepare('select p_name,p_desc,p_votes,p_views,firstname,lastname,email,cat_name,tag from projects,users,catagories,project_tags where projects.p_id= ? and projects.p_catagory=catagories.cat_id and projects.p_id=project_tags.p_id and projects.p_author=users.user_id')){
+                    die(mysqli_error($con));
+                }
+                else{
+                        $pstmt->bind_param('s',$pid);
+                        $pstmt->execute();
+                        $presult = $pstmt->get_result();
+                        $precord = $presult->fetch_assoc();
+                }
+				$tagslist = array();
+				while($tagrecord = $presult->fetch_assoc()){
+					array_push($tagslist,$tagrecord['tag']);	
+				}
+
+	  
+	  ?>
+        <div class="panel-heading">
+          <h2 class="panel-title panel-title-custom">Project details</h2>
+        </div>
+        <div class="panel-body panel-body-custom"> <span id="notice"></span>
+          <div id="project-details" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom">
+            <div id="project-header"> <?php echo $precord['p_name']?> </div>
+            <div id="project-desc"> <?php echo nl2br($precord['p_desc'])?> </div>
+            <div id="project-footer">
+              <div id="project-info"> <span id="p-catagory"><?php echo $precord['cat_name']?></span> <span id="p-tags">
+                <?php 
+                                $tagcount = count($tagslist);
+                                foreach($tagslist as $index => $tag){
+                                    echo $tag;
+                                    if($index+1 != $tagcount){
+                                        echo ", ";
+                                    }
+                                }
+                            
+                            ?>
+                </span> </div>
+              <div id="project-author">
+                <div id="author-profile"> <span id="author-name"><?php echo $precord['firstname']." ".$precord['lastname'] ?></span> <span id="author-email"><?php echo $precord['email'] ?></span> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- InstanceEndEditable --> </div>
   </div>
 </div>
 <div id="footer"> </div>
 </body>
+<!-- InstanceEnd -->
 </html>
