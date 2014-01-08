@@ -6,16 +6,17 @@
 	if(!isset($_SESSION['user'])){
 		header('location:login.php');	
 	}
-	
 ?>
 <html>
 <head>
 <!-- TemplateBeginEditable name="doctitle" -->
 <title>Projects - Project Portal</title>
 <!-- TemplateEndEditable -->
+
 <link href="../css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../css/homepage-styles.css" media="screen" rel="stylesheet" type="text/css">
 <link href="../css/toastr.css" media="screen" rel="stylesheet" type="text/css">
+<link href="../css/bootstrap.icon-large.css" media="screen" rel="stylesheet" type="text/css">
 <!--   <link href="css/tablesorter.css" media="screen" rel="stylesheet" type="text/css"> -->
 <script src="../js/jquery.js" type="text/javascript"></script>
 <!-- <script type="text/javascript" src="js/jquery.tablesorter.js"></script> -->
@@ -39,6 +40,8 @@
             unset($_SESSION['results']);	
         }
     ?>
+    
+    
 <div id="header-panel">
   <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="../home.php"><span>PROJECT PORTAL</span></a>
     <ul class="nav navbar-nav navbar-right">
@@ -122,21 +125,26 @@
     
     
     <div id="project-listing" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom">
-    <!-- TemplateBeginEditable name="content-header-panel" -->
+    
       <div id="control-panel">
         <div class="form-group suggestproject">
           <button class="btn btn-success "  data-toggle="modal" data-target="#projectidea"> <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suggest a project idea </button>
         </div>
-        <form class="form-inline searchform" method="get" role="form" action="../home.php">
-          <div class="searchform">
-            <div class="form-group">
+        
+        
+        
+        
+        
+        <form class="form-inline searchform wide400px" method="get" role="form" action="../home.php">
+        	<div class="input-group">
               <input type="text" class="form-control wide400px" id="search-q" name="search-q" placeholder="Search" value="<?php echo isset($_GET['search-q'])? $_GET['search-q']: "";?>">
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-default btn-primary btn-sm sortlist"><span class="glyphicon glyphicon-search"></span></button>
-            </div>
-          </div>
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default btn-primary sortlist"><span class="glyphicon glyphicon-search"></span></button>
+              </span>
+            </div><!-- /input-group -->  
         </form>
+        
+        <!-- TemplateBeginEditable name="content-header-panel" -->
         <div class="btn-group sortlist">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-sort"></span>&nbsp;&nbsp;Sort&nbsp;&nbsp;<span class="caret"></span> </button>
           <ul class="dropdown-menu pull-right" role="menu">
@@ -180,10 +188,11 @@
               ?>
           </ul>
         </div>
+        <!-- TemplateEndEditable -->
       </div>
-    <!-- TemplateEndEditable -->
+    
 	
-	<!-- TemplateBeginEditable name="EditRegion4" -->
+	
     
       
       <div class="modal fade" id="projectidea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -234,7 +243,7 @@
         <!-- /.modal-dialog --> 
       </div>
       <!-- /.modal -->
-     <!-- TemplateEndEditable --><!-- TemplateBeginEditable name="Main-body" -->
+      <!-- TemplateBeginEditable name="Main-body" -->
      
      
       <div id="projectlist" class="panel panel-default">
@@ -244,7 +253,7 @@
         <div class="panel-body panel-body-custom"> <span id="notice"></span>
           <table id="projects-table" class="table-responsive" cellspacing='0'>
             <!-- cellspacing='0' is important, must stay --> 
-            
+            	<!-- test -->
             <!-- Table Header -->
             <thead>
               <tr>

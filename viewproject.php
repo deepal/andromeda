@@ -8,15 +8,19 @@
 	}
 	
 ?>
-<html>
-<!-- InstanceBegin template="/Templates/home.dwt.php" codeOutsideHTMLIsLocked="false" -->
+<html><!-- InstanceBegin template="/Templates/home.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Projects - Project Portal</title>
-<!-- InstanceEndEditable -->
+
+      
+      <!-- /.modal --> 
+      <!-- InstanceEndEditable -->
+
 <link href="css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/homepage-styles.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/toastr.css" media="screen" rel="stylesheet" type="text/css">
+<link href="css/bootstrap.icon-large.css" media="screen" rel="stylesheet" type="text/css">
 <!--   <link href="css/tablesorter.css" media="screen" rel="stylesheet" type="text/css"> -->
 <script src="js/jquery.js" type="text/javascript"></script>
 <!-- <script type="text/javascript" src="js/jquery.tablesorter.js"></script> -->
@@ -24,6 +28,7 @@
 <script type="text/javascript" src="js/alert.js"></script>
 <script src="js/toastr.js" type="text/javascript"></script>
 <!-- InstanceBeginEditable name="head" -->
+
 <!-- InstanceEndEditable -->
 </head>
 <body onLoad="document.getElementById('search-q').focus();">
@@ -40,6 +45,8 @@
             unset($_SESSION['results']);	
         }
     ?>
+    
+    
 <div id="header-panel">
   <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="home.php"><span>PROJECT PORTAL</span></a>
     <ul class="nav navbar-nav navbar-right">
@@ -119,31 +126,38 @@
         </div>
       </div>
     </div>
-    <div id="project-listing" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom"> <!-- InstanceBeginEditable name="content-header-panel" -->
+    
+    
+    
+    <div id="project-listing" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom">
+    
       <div id="control-panel">
         <div class="form-group suggestproject">
           <button class="btn btn-success "  data-toggle="modal" data-target="#projectidea"> <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suggest a project idea </button>
         </div>
-        <form class="form-inline searchform" method="get" role="form" action="home.php">
-          <div class="searchform">
-            <div class="form-group">
+        
+        
+        
+        
+        
+        <form class="form-inline searchform wide400px" method="get" role="form" action="home.php">
+        	<div class="input-group">
               <input type="text" class="form-control wide400px" id="search-q" name="search-q" placeholder="Search" value="<?php echo isset($_GET['search-q'])? $_GET['search-q']: "";?>">
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-default btn-primary btn-sm sortlist"><span class="glyphicon glyphicon-search"></span></button>
-            </div>
-          </div>
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default btn-primary sortlist"><span class="glyphicon glyphicon-search"></span></button>
+              </span>
+            </div><!-- /input-group -->  
         </form>
         
-        
-        
-        
-        
-        
-        
-        
+        <!-- InstanceBeginEditable name="content-header-panel" -->
+     
+      <!-- InstanceEndEditable -->
       </div>
-      <!-- InstanceEndEditable --> <!-- InstanceBeginEditable name="EditRegion4" -->
+    
+	
+	
+    
+      
       <div class="modal fade" id="projectidea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -191,8 +205,8 @@
         </div>
         <!-- /.modal-dialog --> 
       </div>
-      <!-- /.modal --> 
-      <!-- InstanceEndEditable --><!-- InstanceBeginEditable name="Main-body" -->
+      <!-- /.modal -->
+      <!-- InstanceBeginEditable name="Main-body" -->
       <div id="projectdetails" class="panel panel-default">
       <?php
             if(isset($_GET['pid'])){
@@ -228,7 +242,7 @@
             <div id="project-header"> <?php echo $precord['p_name']?> </div>
             <div id="project-desc"> <?php echo nl2br($precord['p_desc'])?> </div>
             <div id="project-footer">
-              <div id="project-info"> <span id="p-catagory"><?php echo $precord['cat_name']?></span> <span id="p-tags">
+              <div id="project-info"> <span id="p-catagory"><span>Catagory : </span><?php echo $precord['cat_name']?></span> <span id="p-tags"><br><span>Tags : </span>
                 <?php 
                                 $tagcount = count($tagslist);
                                 foreach($tagslist as $index => $tag){
@@ -240,17 +254,30 @@
                             
                             ?>
                 </span> </div>
+                <span style="font-weight:bold;">Suggested by:</span>
               <div id="project-author">
-                <div id="author-profile"> <span id="author-name"><?php echo $precord['firstname']." ".$precord['lastname'] ?></span> <span id="author-email"><?php echo $precord['email'] ?></span> </div>
+                <div id="profile-pic"><img src="http://www.deque.com/wbcntnt928/wp-content/dquploads/jquery_logo.png" alt="Not found!" class="img-rounded img-custom"/></div>
+                <div id="author-profile"> <span id="author-name"><?php echo $precord['firstname']." ".$precord['lastname'] ?></span><br> <span id="author-email"><a href="mailto:someone@example.com" target="_top"><?php echo $precord['email'] ?></a></span> </div>
               </div>
             </div>
           </div>
+          <div id="project-actions">
+          
+          	<ul class="nav nav-stacked">
+                <li class="spaced-list"><button class="btn  btn-danger"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;Join Project</button></li>
+                <li><button class="btn btn-block btn-danger"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;Follow</button></li>
+            </ul>
+          </div>
+          
+          	
+          
         </div>
       </div>
-      <!-- InstanceEndEditable --> </div>
+      <!-- InstanceEndEditable --> 
+    </div>
+  	
   </div>
 </div>
 <div id="footer"> </div>
 </body>
-<!-- InstanceEnd -->
-</html>
+<!-- InstanceEnd --></html>

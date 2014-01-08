@@ -1,3 +1,8 @@
+a:link {color:#333333;}     
+a:visited {color:#333333;} 
+a:hover {color:#025EA8; text-decoration:none;}  
+a:active {color:#333333;} 
+
 .nav-panel-custom {
 	width: auto;
 	padding: 0px 5px;
@@ -338,5 +343,88 @@ table tr:hover td {
 	margin-left:15px;
 }
 
+#project-details{
+	float:left;
+	margin-right:0;
+}
+
+#project-actions{
+	float:right;
+	padding-right:10px;
+}
+
+#project-header{
+	font-size:24px;
+	font-weight:bold;
+	margin-bottom:15px;
+}
+
+
+#project-desc{
+	border-bottom: 1px solid #CCC;
+	padding-bottom:10px;
+	font-size:13px;
+}
+
+
+#project-footer{
+	padding:10px 10px 15px 20px;
+	margin-top:10px;
+	font-size:13px;
+	border-radius:5px;
+	background:#EBEBEB;
+	clear:both;
+	height: 145px;
+	width:400px;
+}
+
+
+#project-info{
+	margin-bottom:10px;
+}
+
+#p-catagory span
+{
+	font-weight:bold;
+}
+
+#p-tags span{
+	font-weight:bold;
+}
+
+#project-author{
+	padding:0 10px;
+	padding-top:5px;
+	
+}
+
+#profile-pic{
+	float:left;
+	margin-right:5px;
+	
+}
+
+#author-profile{
+	border-left:1px solid #CCC;
+	float:left;
+	padding-left:5px;
+}
+
+#author-name{
+	
+}
+
+#author-email{
+	
+}
+
+.spaced-list{
+	margin-bottom:10px;	
+}
+
+.img-custom{
+	height:48px !important;
+	width:48px !important;	
+}
 
 

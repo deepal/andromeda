@@ -8,18 +8,25 @@
 	}
 	
 ?>
-<html>
+<html><!-- InstanceBegin template="/Templates/home.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
+<!-- InstanceBeginEditable name="doctitle" -->
 <title>Projects - Project Portal</title>
+
+     <!-- InstanceEndEditable -->
+
 <link href="css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/homepage-styles.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/toastr.css" media="screen" rel="stylesheet" type="text/css">
+<link href="css/bootstrap.icon-large.css" media="screen" rel="stylesheet" type="text/css">
 <!--   <link href="css/tablesorter.css" media="screen" rel="stylesheet" type="text/css"> -->
 <script src="js/jquery.js" type="text/javascript"></script>
 <!-- <script type="text/javascript" src="js/jquery.tablesorter.js"></script> -->
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/alert.js"></script>
 <script src="js/toastr.js" type="text/javascript"></script>
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
 </head>
 <body onLoad="document.getElementById('search-q').focus();">
 <?php
@@ -35,6 +42,8 @@
             unset($_SESSION['results']);	
         }
     ?>
+    
+    
 <div id="header-panel">
   <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="home.php"><span>PROJECT PORTAL</span></a>
     <ul class="nav navbar-nav navbar-right">
@@ -114,21 +123,31 @@
         </div>
       </div>
     </div>
+    
+    
+    
     <div id="project-listing" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom">
+    
       <div id="control-panel">
         <div class="form-group suggestproject">
           <button class="btn btn-success "  data-toggle="modal" data-target="#projectidea"> <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suggest a project idea </button>
         </div>
-        <form class="form-inline searchform" method="get" role="form" action="home.php">
-          <div class="searchform">
-            <div class="form-group">
+        
+        
+        
+        
+        
+        <form class="form-inline searchform wide400px" method="get" role="form" action="home.php">
+        	<div class="input-group">
               <input type="text" class="form-control wide400px" id="search-q" name="search-q" placeholder="Search" value="<?php echo isset($_GET['search-q'])? $_GET['search-q']: "";?>">
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-default btn-primary btn-sm sortlist"><span class="glyphicon glyphicon-search"></span></button>
-            </div>
-          </div>
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default btn-primary sortlist"><span class="glyphicon glyphicon-search"></span></button>
+              </span>
+            </div><!-- /input-group -->  
         </form>
+        
+        <!-- InstanceBeginEditable name="content-header-panel" -->
+      
         <div class="btn-group sortlist">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-sort"></span>&nbsp;&nbsp;Sort&nbsp;&nbsp;<span class="caret"></span> </button>
           <ul class="dropdown-menu pull-right" role="menu">
@@ -172,7 +191,13 @@
               ?>
           </ul>
         </div>
+    <!-- InstanceEndEditable -->
       </div>
+    
+	
+	
+    
+      
       <div class="modal fade" id="projectidea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -221,7 +246,9 @@
         <!-- /.modal-dialog --> 
       </div>
       <!-- /.modal -->
-      
+      <!-- InstanceBeginEditable name="Main-body" -->
+     
+     
       <div id="projectlist" class="panel panel-default">
         <div class="panel-heading">
           <h2 class="panel-title panel-title-custom">Recent Project Ideas</h2>
@@ -572,9 +599,12 @@
           </div>
         </div>
       </div>
+      
+      <!-- InstanceEndEditable --> 
     </div>
+  	
   </div>
 </div>
 <div id="footer"> </div>
 </body>
-</html>
+<!-- InstanceEnd --></html>
