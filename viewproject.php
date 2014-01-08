@@ -245,16 +245,28 @@
 			
 				<div style="clear:both;"><?php echo nl2br($precord['p_desc'])?></div> 
             	<div id="likebutton-div">
-                	<button id="like-project" class="btn btn-info likebutton"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Like this project</button>
+                	<?php echo "<button type='button' ";
+                    	
+						 
+							$q = "select * from user_votes where user_id='".$_SESSION['user']['user_id']."'";
+							echo "";
+							$voteres = mysqli_query($con,$q) or die(mysqli_error($con));
+							if(mysqli_num_rows($voteres)!=0){
+								echo "disabled='disabled'";
+							}
+							
+						
+                        
+                     echo "id='like-project' class='btn btn-info likebutton'><span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;Like this project</button>";
+					 ?>
                 </div>
                 <script>
 					$(document).ready(function(e) {
                         $("#like-project").click(function(){
-							var request = $.ajax({
-								type:"POST";
-								url:"php/likeproject.php";
-							});
-							
+							$.post( "php/likeproject.php" );		
+							$this = $(this);
+							$this.val("<span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;Liked");
+							$this.attr("disabled", "disabled");
 							
 						});
                     });
