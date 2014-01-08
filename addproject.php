@@ -40,6 +40,6 @@
 	$_SESSION['add-project']="success";
 	
 	
-	header("location:home.php");
+	header("location:".$_SERVER['HTTP_REFERER']);
 ?>
 

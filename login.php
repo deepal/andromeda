@@ -7,7 +7,16 @@
 	
 	echo session_id();
 	if(isset($_SESSION['user'])){
-		header('location:home.php');
+		
+		/*
+		if(isset($_SERVER['HTTP_REFERER'])){
+			header('location:'.$_SERVER['HTTP_REFERER']);
+		}
+		else{
+			header('location:home.php');
+			echo "<script>".$_SERVER['HTTP_REFERER']."</script>";
+		}
+		*/
 	}
 	
 	class DBConnection{

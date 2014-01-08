@@ -211,6 +211,7 @@
       <?php
             if(isset($_GET['pid'])){
 				$pid = $_GET['pid'];
+				$_SESSION['current_pid']=$pid;
 			}
 			else{
 				
@@ -218,7 +219,7 @@
             require_once ('config/dbcon.php');
             $dbcon = new DBConnection();
             $con = $dbcon->connect();
-            if(!$pstmt=$con->prepare('select p_name,p_desc,p_votes,p_views,firstname,lastname,email,cat_name,tag from projects,users,catagories,project_tags where projects.p_id= ? and projects.p_catagory=catagories.cat_id and projects.p_id=project_tags.p_id and projects.p_author=users.user_id')){
+            if(!$pstmt=$con->prepare('select p_name,p_desc,p_votes,p_views,user_id,firstname,lastname,email,cat_name,tag from projects,users,catagories,project_tags where projects.p_id= ? and projects.p_catagory=catagories.cat_id and projects.p_id=project_tags.p_id and projects.p_author=users.user_id')){
                     die(mysqli_error($con));
                 }
                 else{
@@ -240,13 +241,32 @@
         <div class="panel-body panel-body-custom"> <span id="notice"></span>
           <div id="project-details" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom">
             <div id="project-header"> <?php echo $precord['p_name']?> </div>
-            <div id="project-desc"> <?php echo nl2br($precord['p_desc'])?> </div>
+            <div id="project-desc"> 
+			
+				<div style="clear:both;"><?php echo nl2br($precord['p_desc'])?></div> 
+            	<div id="likebutton-div">
+                	<button id="like-project" class="btn btn-info likebutton"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Like this project</button>
+                </div>
+                <script>
+					$(document).ready(function(e) {
+                        $("#like-project").click(function(){
+							var request = $.ajax({
+								type:"POST";
+								url:"php/likeproject.php";
+							});
+							
+							
+						});
+                    });
+				</script>
+            </div>
+            
             <div id="project-footer">
               <div id="project-info"> <span id="p-catagory"><span>Catagory : </span><?php echo $precord['cat_name']?></span> <span id="p-tags"><br><span>Tags : </span>
                 <?php 
                                 $tagcount = count($tagslist);
                                 foreach($tagslist as $index => $tag){
-                                    echo $tag;
+                                    echo "<a href='home.php?search-q=".urlencode(stripslashes(strip_tags($tag)))."'>".$tag."</a>";
                                     if($index+1 != $tagcount){
                                         echo ", ";
                                     }
@@ -256,8 +276,8 @@
                 </span> </div>
                 <span style="font-weight:bold;">Suggested by:</span>
               <div id="project-author">
-                <div id="profile-pic"><img src="http://www.deque.com/wbcntnt928/wp-content/dquploads/jquery_logo.png" alt="Not found!" class="img-rounded img-custom"/></div>
-                <div id="author-profile"> <span id="author-name"><?php echo $precord['firstname']." ".$precord['lastname'] ?></span><br> <span id="author-email"><a href="mailto:someone@example.com" target="_top"><?php echo $precord['email'] ?></a></span> </div>
+                <div id="profile-pic"><img src="images/user.jpg" alt="Not found!" class="img-rounded img-custom"/></div>
+                <div id="author-profile"> <span id="author-name"><?php echo "<a href='viewprofile.php?user=".$precord['user_id']."'>".$precord['firstname']." ".$precord['lastname']."</a>"?></span><br> <span id="author-email"><a href="mailto:someone@example.com" target="_top"><?php echo $precord['email'] ?></a></span> </div>
               </div>
             </div>
           </div>
