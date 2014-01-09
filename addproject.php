@@ -1,11 +1,12 @@
 
 <?php
 	session_start();
+	session_regenerate_id();
 	require_once("config/dbcon.php");
 
 	$projecttitle = $_POST['ptitle'];
 	$projectdesc = $_POST['pdesc'];
-	$projectcatagory = $_POST['pcatagory'];
+	$projectcatagory = (is_null($_POST['pcatagory']) || isset($_POST['pcatagory']))?0:$_POST['pcatagory'];
 	$projecttags = $_POST['ptags'];
 	$projectauthor = $_SESSION['user']['user_id'];
 	

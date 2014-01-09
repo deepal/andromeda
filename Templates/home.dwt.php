@@ -1,6 +1,8 @@
 <!doctype html>
 <?php
 	session_start();
+	
+	session_regenerate_id();
 	define("MAX_NO_PER_PAGE",7);
 	require_once("../config/portalconfig.php");
 	if(!isset($_SESSION['user'])){
@@ -9,6 +11,7 @@
 ?>
 <html>
 <head>
+
 <!-- TemplateBeginEditable name="doctitle" -->
 <title>Projects - Project Portal</title>
 <!-- TemplateEndEditable -->
@@ -108,7 +111,7 @@
         <button type="button" class="btn btn-warning btn-block btn-dropdown" data-toggle="collapse" data-target="#users-link"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;People</button>
         <div id="users-link" class="collapse in">
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
-            <li><a class="btn-dropdown-item" href="#">Members</a></li>
+            <li><a class="btn-dropdown-item" href="../members.php">Members</a></li>
             <li><a class="btn-dropdown-item" href="#">Ask a question</a></li>
           </ul>
         </div>
@@ -243,14 +246,17 @@
         <!-- /.modal-dialog --> 
       </div>
       <!-- /.modal -->
-      <!-- TemplateBeginEditable name="Main-body" -->
+      
      
      
       <div id="projectlist" class="panel panel-default">
         <div class="panel-heading">
+        	<!-- TemplateBeginEditable name="ContentPanelHeading" -->
           <h2 class="panel-title panel-title-custom">Recent Project Ideas</h2>
+          <!-- TemplateEndEditable -->
         </div>
         <div class="panel-body panel-body-custom"> <span id="notice"></span>
+        <!-- TemplateBeginEditable name="Main-body" -->
           <table id="projects-table" class="table-responsive" cellspacing='0'>
             <!-- cellspacing='0' is important, must stay --> 
             	<!-- test -->
@@ -595,9 +601,10 @@
             </div>
           </div>
         </div>
+        <!-- TemplateEndEditable --> 
       </div>
       
-      <!-- TemplateEndEditable --> 
+      
     </div>
   	
   </div>

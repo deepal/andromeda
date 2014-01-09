@@ -1,6 +1,7 @@
 <!doctype html>
 <?php
 	session_start();
+	session_regenerate_id();
 	define("MAX_NO_PER_PAGE",7);
 	require_once("config/portalconfig.php");
 	if(!isset($_SESSION['user'])){
@@ -10,6 +11,7 @@
 ?>
 <html><!-- InstanceBegin template="/Templates/home.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
+
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Projects - Project Portal</title>
 
@@ -113,7 +115,7 @@
         <button type="button" class="btn btn-warning btn-block btn-dropdown" data-toggle="collapse" data-target="#users-link"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;People</button>
         <div id="users-link" class="collapse in">
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
-            <li><a class="btn-dropdown-item" href="#">Members</a></li>
+            <li><a class="btn-dropdown-item" href="members.php">Members</a></li>
             <li><a class="btn-dropdown-item" href="#">Ask a question</a></li>
           </ul>
         </div>
@@ -206,8 +208,17 @@
         <!-- /.modal-dialog --> 
       </div>
       <!-- /.modal -->
-      <!-- InstanceBeginEditable name="Main-body" -->
-      <div id="projectdetails" class="panel panel-default">
+      
+     
+     
+      <div id="projectlist" class="panel panel-default">
+        <div class="panel-heading">
+        	<!-- InstanceBeginEditable name="ContentPanelHeading" -->
+          <h2 class="panel-title panel-title-custom">Project Details</h2>
+          <!-- InstanceEndEditable -->
+        </div>
+        <div class="panel-body panel-body-custom"> <span id="notice"></span>
+        <!-- InstanceBeginEditable name="Main-body" -->
       <?php
             if(isset($_GET['pid'])){
 				$pid = $_GET['pid'];
@@ -219,60 +230,60 @@
             require_once ('config/dbcon.php');
             $dbcon = new DBConnection();
             $con = $dbcon->connect();
-            if(!$pstmt=$con->prepare('select p_name,p_desc,p_votes,p_views,user_id,firstname,lastname,email,cat_name,tag from projects,users,catagories,project_tags where projects.p_id= ? and projects.p_catagory=catagories.cat_id and projects.p_id=project_tags.p_id and projects.p_author=users.user_id')){
+            if(!$pstmt=$con->prepare('select p_name,p_desc,p_votes,p_views,user_id,firstname,lastname,email,cat_name from projects,users,catagories where projects.p_id= ? and projects.p_catagory=catagories.cat_id and projects.p_author=users.user_id')){
                     die(mysqli_error($con));
                 }
-                else{
-                        $pstmt->bind_param('s',$pid);
-                        $pstmt->execute();
-                        $presult = $pstmt->get_result();
-                        $precord = $presult->fetch_assoc();
-                }
-				$tagslist = array();
-				while($tagrecord = $presult->fetch_assoc()){
-					array_push($tagslist,$tagrecord['tag']);	
-				}
+			else{
+				$pstmt->bind_param('i',$pid);
+				$pstmt->execute();
+				$presult = $pstmt->get_result();
+				$precord = $presult->fetch_assoc();
+			}
+			$tquery = "select tag from project_tags where p_id='".$pid."'";
+			$tresult =  mysqli_query($con,$tquery);
+			$tagslist = array();
+			while($tagrecord = $tresult->fetch_assoc()){
+				array_push($tagslist,$tagrecord['tag']);	
+			}
 
 	  
 	  ?>
-        <div class="panel-heading">
-          <h2 class="panel-title panel-title-custom">Project details</h2>
-        </div>
+        
         <div class="panel-body panel-body-custom"> <span id="notice"></span>
           <div id="project-details" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom">
             <div id="project-header"> <?php echo $precord['p_name']?> </div>
-            <div id="project-desc"> 
-			
+            <div id="project-desc">
 				<div style="clear:both;"><?php echo nl2br($precord['p_desc'])?></div> 
             	<div id="likebutton-div">
-                	<?php echo "<button type='button' ";
-                    	
-						 
-							$q = "select * from user_votes where user_id='".$_SESSION['user']['user_id']."'";
-							echo "";
-							$voteres = mysqli_query($con,$q) or die(mysqli_error($con));
-							if(mysqli_num_rows($voteres)!=0){
-								echo "disabled='disabled'";
-							}
-							
-						
-                        
-                     echo "id='like-project' class='btn btn-info likebutton'><span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;Like this project</button>";
-					 ?>
+                	<?php echo "<button type='button' ";		 
+						$q = "select * from user_votes where voted_project_id='".$_SESSION['current_pid']."' and user_id='".$_SESSION['user']['user_id']."'";
+						$voteres = mysqli_query($con,$q) or die(mysqli_error($con));
+						if(mysqli_num_rows($voteres)!=0){
+							echo "disabled='disabled' class='btn btn-info likebutton' ";
+						}
+						else if ($_SESSION['user']['user_id']==$precord['user_id']){
+							echo "disabled='disabled' class='btn btn-default likebutton' ";
+						}
+						else{
+							echo "class='btn btn-info likebutton' ";
+						}
+                     	echo "id='like-project' ><span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;Vote project</button>";
+					?>
+                    
                 </div>
                 <script>
 					$(document).ready(function(e) {
                         $("#like-project").click(function(){
+								
 							$.post( "php/likeproject.php" );		
 							$this = $(this);
-							$this.val("<span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;&nbsp;Liked");
 							$this.attr("disabled", "disabled");
-							
+							toastr.info($("#project-header").text(),"You voted the project");
+								
 						});
                     });
 				</script>
             </div>
-            
             <div id="project-footer">
               <div id="project-info"> <span id="p-catagory"><span>Catagory : </span><?php echo $precord['cat_name']?></span> <span id="p-tags"><br><span>Tags : </span>
                 <?php 
@@ -286,11 +297,16 @@
                             
                             ?>
                 </span> </div>
-                <span style="font-weight:bold;">Suggested by:</span>
+                
               <div id="project-author">
-                <div id="profile-pic"><img src="images/user.jpg" alt="Not found!" class="img-rounded img-custom"/></div>
-                <div id="author-profile"> <span id="author-name"><?php echo "<a href='viewprofile.php?user=".$precord['user_id']."'>".$precord['firstname']." ".$precord['lastname']."</a>"?></span><br> <span id="author-email"><a href="mailto:someone@example.com" target="_top"><?php echo $precord['email'] ?></a></span> </div>
+                <div id="profile-pic"><img src="images/profile-pics/user1.png" alt="Not found!" class="img-rounded img-custom"/></div>
+                <div id="author-profile"> <span id="author-name"><?php echo "<a href='viewprofile.php?user=".$precord['user_id']."'>".$precord['firstname']." ".$precord['lastname']."</a>"?></span><br> <span id="author-email"><a href="mailto:someone@example.com" target="_top"><?php echo $precord['email'] ?></a></span></div>
               </div>
+              
+              
+              
+              
+              
             </div>
           </div>
           <div id="project-actions">
@@ -301,11 +317,11 @@
             </ul>
           </div>
           
-          	
-          
         </div>
-      </div>
       <!-- InstanceEndEditable --> 
+      </div>
+      
+      
     </div>
   	
   </div>

@@ -34,7 +34,7 @@ a:selected {text-decoration:none;color:#333333;}
 
 body {
 	padding-top: 70px;
-	background: #EDEFFE;
+	background: #F5F5F5;
 }
 .logo-text {
 	font-weight: bold;
@@ -376,9 +376,9 @@ table tr:hover td {
 	margin-top:10px;
 	font-size:13px;
 	border-radius:5px;
-	background:#EBEBEB;
+	background:#EAEAEA;
 	clear:both;
-	height: 145px;
+	height: auto;
 	width:400px;
 }
 
@@ -399,6 +399,14 @@ table tr:hover td {
 #project-author{
 	padding:0 10px;
 	padding-top:5px;
+	background:#FBFBFB;
+	height:auto;
+	overflow:auto;
+	padding-bottom:10px;
+	margin-right:10px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
 	
 }
 
@@ -440,4 +448,5 @@ table tr:hover td {
 #likebutton-div{
 	float:right;
 	clear:both;	
+	margin-top:5px;
 }

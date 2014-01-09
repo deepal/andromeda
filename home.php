@@ -1,6 +1,7 @@
 <!doctype html>
 <?php
 	session_start();
+	session_regenerate_id();
 	define("MAX_NO_PER_PAGE",7);
 	require_once("config/portalconfig.php");
 	if(!isset($_SESSION['user'])){
@@ -10,6 +11,7 @@
 ?>
 <html><!-- InstanceBegin template="/Templates/home.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
+
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Projects - Project Portal</title>
 
@@ -110,7 +112,7 @@
         <button type="button" class="btn btn-warning btn-block btn-dropdown" data-toggle="collapse" data-target="#users-link"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;People</button>
         <div id="users-link" class="collapse in">
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
-            <li><a class="btn-dropdown-item" href="#">Members</a></li>
+            <li><a class="btn-dropdown-item" href="members.php">Members</a></li>
             <li><a class="btn-dropdown-item" href="#">Ask a question</a></li>
           </ul>
         </div>
@@ -246,14 +248,19 @@
         <!-- /.modal-dialog --> 
       </div>
       <!-- /.modal -->
-      <!-- InstanceBeginEditable name="Main-body" -->
+      
      
      
       <div id="projectlist" class="panel panel-default">
         <div class="panel-heading">
+        	<!-- InstanceBeginEditable name="ContentPanelHeading" -->
           <h2 class="panel-title panel-title-custom">Recent Project Ideas</h2>
+          <!-- InstanceEndEditable -->
         </div>
         <div class="panel-body panel-body-custom"> <span id="notice"></span>
+        <!-- InstanceBeginEditable name="Main-body" -->
+     
+
           <table id="projects-table" class="table-responsive" cellspacing='0'>
             <!-- cellspacing='0' is important, must stay --> 
             
@@ -595,12 +602,14 @@
                       <!--<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li> --><!--
                       <li class="disabled"><a href="#">&raquo;</a></li> 
                     </ul>      --> 
-            </div>
-          </div>
+
         </div>
       </div>
       
       <!-- InstanceEndEditable --> 
+      </div>
+      
+      
     </div>
   	
   </div>

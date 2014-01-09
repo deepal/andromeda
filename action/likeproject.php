@@ -16,5 +16,6 @@
 	$stmt2->bind_param('i',$_SESSION['current_pid']);
 	$stmt->execute();
 	$stmt2->execute();
-	echo 'done';
+	
+	
 ?>
