@@ -215,22 +215,25 @@
         <div class="panel-body panel-body-custom"> <span id="notice"></span>
         <!-- InstanceBeginEditable name="Main-body" -->
      		<?php
+				
 				if(isset($_GET['user']) && $_GET['user']!='0'){
-					echo $_GET['user'];
 					$user_id = strip_tags(stripcslashes(trim($_GET['user'])));	
 								
-					if($stmt = $con->prepare('select username,firstname,lastname,email,profile_pic_path from users where user_id = ?')){
+					if(!$stmt = $con->prepare('select username,firstname,lastname,email,profile_pic_path from users')){
 						die(mysqli_error($con));
 					}
 					else{
-						$stmt->bind_param('i',$user_id);
-						$userres = $stmt->execute() or die(mysqli_errno($con));
-						print_r($userres);
+						//$stmt->bind_param('i',$user_id);
+						$stmt->execute() or die(mysqli_errno($con));
+						$result = $stmt->get_result();
+						while($row=$result->fetch_assoc()){
+							print_r($row);	
+						}
 					}
 					
 				}
 				else{
-					echo "failed";
+					echo $_GET['user']."333333333333";
 				}
 			
 			?>
