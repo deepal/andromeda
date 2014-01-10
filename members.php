@@ -139,7 +139,7 @@
         
         <form class="form-inline searchform wide400px" method="get" role="form" action="home.php">
         	<div class="input-group">
-              <input type="text" class="form-control wide400px" id="search-q" name="search-q" placeholder="Search" value="<?php echo isset($_GET['search-q'])? $_GET['search-q']: "";?>">
+              <input type="text" class="form-control wide400px" id="search-q" name="search-q" placeholder="Search Projects" value="<?php echo isset($_GET['search-q'])? $_GET['search-q']: "";?>">
               <span class="input-group-btn">
                 <button type="submit" class="btn btn-default btn-primary sortlist"><span class="glyphicon glyphicon-search"></span></button>
               </span>
@@ -209,34 +209,62 @@
       <div id="projectlist" class="panel panel-default">
         <div class="panel-heading">
         	<!-- InstanceBeginEditable name="ContentPanelHeading" -->
-          <h2 class="panel-title panel-title-custom">Recent Project Ideas</h2>
+          <h2 class="panel-title panel-title-custom">Project Portal Members</h2>
           <!-- InstanceEndEditable -->
         </div>
         <div class="panel-body panel-body-custom"> <span id="notice"></span>
         <!-- InstanceBeginEditable name="Main-body" -->
-     		<?php
-				
-				if(isset($_GET['user']) && $_GET['user']!='0'){
-					$user_id = strip_tags(stripcslashes(trim($_GET['user'])));	
-								
-					if(!$stmt = $con->prepare('select username,firstname,lastname,email,profile_pic_path from users')){
-						die(mysqli_error($con));
-					}
-					else{
-						//$stmt->bind_param('i',$user_id);
-						$stmt->execute() or die(mysqli_errno($con));
-						$result = $stmt->get_result();
-						while($row=$result->fetch_assoc()){
-							print_r($row);	
+        	<div id="membersearch-div">
+            	
+            	<form id="member-search">
+                	<div class="input-group">
+                    		<input id="search-m" class="form-control" type="text" placeholder="Search members">
+                        	<span class="input-group-btn"><button id="searchbtn" class="btn btn-info" type="submit" class="form-control">Go</button></span>
+                    </div>
+            	</form>
+            </div>
+            
+            <script>
+				$(document).ready(function(e) {
+					$.ajax({
+						type:"GET",
+						url:"action/filter_members.php",
+						success: function(data){
+							$("#membersearch-results").html(data);
 						}
-					}
+					});
+				});
+			</script> 	
+                 
+            <div id="membersearch-results">
+           		
+            </div>
+            
+            
+            <script>
+				$(document).ready(function(e) {
+                    $("#search-m").keyup(function(event){
+						var deepal = $("#search-m").val();
+						$.ajax({
+							type: "GET",
+							url: "action/filter_members.php",
+							data: { search : deepal  },
+							success: function(data){
+								$("#membersearch-results").html(data);
+							}
+						})
+						event.preventDefault();
+					});
 					
-				}
-				else{
-					echo $_GET['user']."333333333333";
-				}
-			
-			?>
+					$("#member-search").submit(function(event){
+						event.preventDefault();
+					});
+					
+                });
+				
+					
+					
+			</script>
      
 		
       

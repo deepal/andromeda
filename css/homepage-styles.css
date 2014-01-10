@@ -450,3 +450,23 @@ table tr:hover td {
 	clear:both;	
 	margin-top:5px;
 }
+
+#membersearch-div{
+	width:300px;
+	float:left;	
+	clear:both;
+}
+
+#membersearch-results{
+	clear:both;
+}
+
+.member-tile{
+	padding:15px;
+	margin:5px;
+	background-color:#FBE8CE;
+	border:none;
+	border-radius:10px;
+	-webkit-border-radius:10px
+	-moz-border-radius:10px;	
+}

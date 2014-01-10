@@ -1,7 +1,6 @@
 <?php
 class DBConnection{
 		private $con;
-		private $userdata, $result;
 		
 		public function connect(){
 			$this->con = new mysqli("localhost","root","","projectportal-bootstrap");
