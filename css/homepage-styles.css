@@ -7,6 +7,7 @@ a:selected {text-decoration:none;color:#333333;}
 .nav-panel-custom {
 	width: auto;
 	padding: 0px 5px;
+	background:url(../images/graphic-white-grid-wallppaer-for-graphic.jpg)
 }
 .sidebar-custom {
 	/*height:200px;
@@ -34,7 +35,8 @@ a:selected {text-decoration:none;color:#333333;}
 
 body {
 	padding-top: 70px;
-	background: #F5F5F5;
+	background: #F2F4FF;
+	background-attachment:scroll;
 }
 .logo-text {
 	font-weight: bold;
@@ -477,4 +479,48 @@ table tr:hover td {
 	height:500px;
 	overflow:scroll;
 	z-index:10;
+}
+
+#notification-div{
+	border-left:1px #D7E7FF solid;
+}
+
+#notification-div{
+	border-left:1px #D7E7FF solid;
+}
+
+.popover{
+	width:300px;
+	max-width:300px;
+	max-height:500px;
+	overflow:auto;
+}
+
+.popover-title{
+	text-align:center;
+}
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background: rgba(153,153,153,1);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(153,153,153,1); 
+}
+
+.navbar-brand{
+	padding:5px 15px;	
 }

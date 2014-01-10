@@ -49,9 +49,44 @@
 <!--these are notification panels-->
 
 <div id="notification-div" class="hidden">
-	sfasdfasdfasdf
+	<a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    
 </div>
 
+<div id="inbox-div" class="hidden">
+	<a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+    <a href=""><p>notif</p></a>
+</div>
+
+<div class="profile-pop" class="hidden">
+
+</div>
 
 <script>
 	$(document).ready(function(e) {
@@ -59,14 +94,29 @@
 			placement:'bottom',
 			html:true,
 			trigger:'click',
-			content:$("#notification-div").html(),
-			title:'Notifications'
+			content:$("#notification-div").html()
 		});
+		
+		$("#notifications").focusout(function(e) {
+         	$("#notifications").popover("hide");  
+		});
+		
+		$("#inbox-msg").focusout(function(e) {
+         	$("#inbox-msg").popover("hide");   
+		});
+
 		
 		$("#notifications").popover("hide");
 		
 		$("#notifications").click(function(event){
-			$("#inbox-msg").popover('hide');
+			$("#inbox-msg").popover('hide');/*
+			if($("#notification-item").attr("class")=="active"){
+				$("#notification-item").attr("class","");
+			}
+			else {
+				$("#notification-item").attr("class","active");
+				$("#inbox-item").attr("class","");
+			}*/
 			event.preventDefault();
 		});
 		
@@ -74,14 +124,22 @@
 			placement:'bottom',
 			html:true,
 			trigger:'click',
-			content:'this is your notification',
-			title:'Inbox'
+			content:$("#inbox-div").html()
 		});
 		
 		$("#inbox-msg").popover("hide");
 		
 		$("#inbox-msg").click(function(event){
 			$("#notifications").popover('hide');
+			/*
+			if($("#inbox-item").attr("class")=="active"){
+				$("#inbox-item").attr("class","");
+			}
+			else {
+				$("#inbox-item").attr("class","active");
+				$("#notification-item").attr("class","");
+			}*/
+			
 			event.preventDefault();
 		});
 		
@@ -89,14 +147,14 @@
 </script>
 
 <!-- end of notification panels -->
-    
+
 <div id="header-panel">
-  <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="home.php"><span>PROJECT PORTAL</span></a>
+  <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="home.php"><span><img src="images/logo.png"></span></a>
     <ul class="nav navbar-nav navbar-right">
       <li>
         <ul class="nav nav-pills notifications">
-          <li><a id="notifications" href="" role="button"><span id="notif" class="glyphicon glyphicon-bell"><span class="badge">5</span></span></a></li>
-          <li><a id="inbox-msg" href="" role="button"><span class="glyphicon glyphicon-inbox"><span class="badge">5</span></span></a></li>
+          <li id="notification-item"><a id="notifications" href="" role="button">Notifications&nbsp;&nbsp;<span class="badge pull-right">5</span></span></a></li>
+          <li id="inbox-item"><a id="inbox-msg" href="" role="button">Inbox&nbsp;&nbsp;<span class="badge pull-right">5</span></span></a></li>
         </ul>
       </li>
       <script>$('#notif').popover('hide')</script>
