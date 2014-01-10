@@ -19,6 +19,9 @@
 <link href="css/homepage-styles.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/toastr.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/bootstrap.icon-large.css" media="screen" rel="stylesheet" type="text/css">
+<script src="js/bootstrap-tooltip.js" type="text/javascript"></script>
+<script src="js/bootstrap-popover.js" type="text/javascript"></script>
+
 <!--   <link href="css/tablesorter.css" media="screen" rel="stylesheet" type="text/css"> -->
 <script src="js/jquery.js" type="text/javascript"></script>
 <!-- <script type="text/javascript" src="js/jquery.tablesorter.js"></script> -->
@@ -42,22 +45,58 @@
             unset($_SESSION['results']);	
         }
     ?>
-    
+
+<!--these are notification panels-->
+
+<div id="notification-div" class="hidden">
+	sfasdfasdfasdf
+</div>
+
+
+<script>
+	$(document).ready(function(e) {
+        $("#notifications").popover({
+			placement:'bottom',
+			html:true,
+			trigger:'click',
+			content:$("#notification-div").html(),
+			title:'Notifications'
+		});
+		
+		$("#notifications").popover("hide");
+		
+		$("#notifications").click(function(event){
+			$("#inbox-msg").popover('hide');
+			event.preventDefault();
+		});
+		
+		$("#inbox-msg").popover({
+			placement:'bottom',
+			html:true,
+			trigger:'click',
+			content:'this is your notification',
+			title:'Inbox'
+		});
+		
+		$("#inbox-msg").popover("hide");
+		
+		$("#inbox-msg").click(function(event){
+			$("#notifications").popover('hide');
+			event.preventDefault();
+		});
+		
+    });
+</script>
+
+<!-- end of notification panels -->
     
 <div id="header-panel">
   <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="home.php"><span>PROJECT PORTAL</span></a>
     <ul class="nav navbar-nav navbar-right">
       <li>
         <ul class="nav nav-pills notifications">
-          <li class="dropdown-toggle" data-toggle="dropdown"><a href=""><span id="notif" class="glyphicon glyphicon-bell"><span class="badge">5</span></span></a></li>
-          <div class="dropdown-menu pull-left " role="menu">
-            <div class="panel panel-default">
-              <div class="panel-body"> Panel content </div>
-              <div class="panel-footer">Panel footer</div>
-            </div>
-          </div>
-          <li class="dropdown-toggle" data-toggle="dropdown"><a href=""><span class="glyphicon glyphicon-inbox"><span class="badge">5</span></span></a></li>
-          <div class="dropdown-menu pull-left" role="menu"> <a href="#">Hover over me</a> </div>
+          <li><a id="notifications" href="" role="button"><span id="notif" class="glyphicon glyphicon-bell"><span class="badge">5</span></span></a></li>
+          <li><a id="inbox-msg" href="" role="button"><span class="glyphicon glyphicon-inbox"><span class="badge">5</span></span></a></li>
         </ul>
       </li>
       <script>$('#notif').popover('hide')</script>
@@ -242,7 +281,7 @@
             
             
             <script>
-				$(document).ready(function(e) {
+				$(document).ready(function(e) {					
                     $("#search-m").keyup(function(event){
 						var deepal = $("#search-m").val();
 						$.ajax({
@@ -261,11 +300,7 @@
 					});
 					
                 });
-				
-					
-					
-			</script>
-     
+			</script>   
 		
       
       <!-- InstanceEndEditable --> 
