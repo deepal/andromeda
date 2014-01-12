@@ -6,10 +6,9 @@
 
 	$projecttitle = $_POST['ptitle'];
 	$projectdesc = $_POST['pdesc'];
-	$projectcatagory = (is_null($_POST['pcatagory']) || isset($_POST['pcatagory']))?0:$_POST['pcatagory'];
+	$projectcatagory = (is_null($_POST['pcatagory']) || !isset($_POST['pcatagory']))?0:$_POST['pcatagory'];
 	$projecttags = $_POST['ptags'];
 	$projectauthor = $_SESSION['user']['user_id'];
-	
 	
 	$dbcon = new DBConnection();
 	

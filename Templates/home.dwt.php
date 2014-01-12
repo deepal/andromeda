@@ -85,8 +85,8 @@
     <a href=""><p>notif</p></a>
 </div>
 
-<div class="profile-pop" class="hidden">
-
+<div class="profile-pop" class="hidden"> 
+	<p></p>
 </div>
 
 <script>
@@ -302,7 +302,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h4 class="modal-title" id="myModalLabel">Suggest a Project Idea</h4>
             </div>
-            <form role="form" method="post" action="../addproject.php" onSubmit="return validate();">
+            <form role="form" method="post" action="../addproject.php" onSubmit="alert(document.getElementById('pcatagory').value">
               <div class="modal-body">
                 <div class="form-group">
                   <label for="ptitle">Project Title</label>
