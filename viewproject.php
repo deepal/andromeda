@@ -321,9 +321,6 @@
 				$pid = $_GET['pid'];
 				$_SESSION['current_pid']=$pid;
 			}
-			else{
-				
-			}
             require_once ('config/dbcon.php');
             $dbcon = new DBConnection();
             $con = $dbcon->connect();
@@ -372,7 +369,7 @@
 					$(document).ready(function(e) {
                         $("#like-project").click(function(){
 								
-							$.post( "php/likeproject.php" );		
+							$.post( "action/likeproject.php" );		
 							$this = $(this);
 							$this.attr("disabled", "disabled");
 							toastr.info($("#project-header").text(),"You voted the project");
@@ -407,13 +404,173 @@
             </div>
           </div>
           <div id="project-actions">
-          
+          	<?php
+            	if(!$stmt1=$con->prepare("select p_id,member_id from project_member where p_id=? and member_id=?")){
+					die(mysqli_error($con));	
+				}
+				else{
+					$stmt1->bind_param('ii',$pid,$_SESSION['user']['user_id']);
+					$stmt1->execute();
+					$joinres = $stmt1->get_result();	
+				}
+				
+				if(!$stmt2=$con->prepare("select p_id,follower_id from project_follower where p_id=? and follower_id=?")){
+					die(mysqli_error($con));	
+				}
+				else{
+					$stmt2->bind_param('ii',$pid,$_SESSION['user']['user_id']);
+					$stmt2->execute();
+					$followres = $stmt2->get_result();	
+				}
+				
+			?>
           	<ul class="nav nav-stacked">
-                <li class="spaced-list"><button class="btn  btn-danger"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;Join Project</button></li>
-                <li><button class="btn btn-block btn-danger"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;Follow</button></li>
+                <li class="spaced-list"><button id="btn-join" 
+                	<?php 
+						if(mysqli_num_rows($joinres)!=0){
+							echo "disabled='disabled' ";
+						}					
+					?>
+                	class="btn  btn-danger" role="button"><span class="glyphicon glyphicon-plus-sign"></span>
+						<?php 
+							if(mysqli_num_rows($joinres)!=0){ 
+								echo "&nbsp;&nbsp;Joined";
+							}
+							else
+							{ 
+								echo "&nbsp;&nbsp;Join Project";
+							}
+						?>
+                        </button></li>
+                        
+                <li><button id="btn-follow" 
+					<?php 
+						if(mysqli_num_rows($followres)!=0){
+							echo "disabled='disabled' ";
+						}					
+					?>
+                    class="btn btn-block btn-danger" role="button"><span class="glyphicon glyphicon-bookmark"></span>
+                    	<?php 
+							if(mysqli_num_rows($followres)!=0){ 
+								echo "&nbsp;&nbsp;Following";
+							}
+							else
+							{ 
+								echo "&nbsp;&nbsp;Follow";
+							}
+						?>
+                    
+                    </button></li>
             </ul>
           </div>
-          
+   			<!-- content of the follow/join popover-->
+            
+            <div id="join-confirmation" class="hidden">
+                <span id="join-form" class="form-inline">
+                	<p>Are you sure?</p>
+                	<button id="join-yes" class="btn btn-success btn-xs">Yes</button>
+               		<button id="join-no"  class="btn btn-danger btn-xs">No</button>
+                </span>
+            </div>
+            
+            <div id="follow-confirmation" class="hidden">
+            	<span id="follow-form" class="form-inline">
+                    <p>Are you sure?</p>
+                    <button id="follow-yes" class="btn btn-success btn-xs">Yes</button>
+                    <button id="follow-no" class="btn btn-danger btn-xs">No</button>
+                </span>
+            </div>
+            
+            <!-- -->
+          <script>		 
+		  		
+				$(document).ready(function(e) {
+					
+					$("#btn-follow").click(function(e) {
+						$("#btn-join").popover("hide");
+                        e.preventDefault();
+                    });
+					
+					$("#btn-follow").popover({
+						html:true,
+						placement:'left',
+						trigger:'click',
+						container:'body',
+						content:$("#follow-confirmation").html()
+						
+					});
+					
+					$("#btn-follow").popover("hide");
+					
+					$("#btn-join").click(function(e) {
+						$("#btn-follow").popover("hide");
+                        e.preventDefault();
+                    });
+					
+					$("#btn-join").popover({
+						html:true,
+						placement:'left',
+						trigger:'click',
+						container:'body',
+						content:$("#join-confirmation").html()
+						
+					});
+					///////there is an error here  |
+					 ///                           V
+					$('body').on("click","#join-yes",funtion(event){
+						$.ajax({
+							type:"GET",
+							url:"action/projectactions.php",
+							data:{action:"join"},
+							
+							success: function(response){
+								toastr.success("<?php echo $precord['p_name']; ?>","You are now a member!");
+								$("#btn-join").attr("disabled","disabled");
+								$("#btn-join").popover("hide");
+							}
+						});
+						event.preventDefault();
+					});
+					
+					$("#btn-join").on("click","#join-no",funtion(event){
+						$("#btn-join").popover("hide");
+						e.preventDefault();
+					});
+					
+					
+					$("#btn-join").popover("hide");
+
+                    $("#join-yes").click(function(event){
+						
+					});	
+					
+					$("#join-no").click(function(e) {
+                        
+                    });
+					
+					$("#follow-yes").click(function(event){
+						$.ajax({
+							type:"GET",
+							url:"action/projectactions.php",
+							data:{action:"follow"},
+							
+							success: function(response){
+								toastr.success("<?php echo $precord['p_name']; ?>","You are now following !");
+								$("#btn-follow").attr("disabled","disabled");
+								$("#btn-follow").popover("hide");
+							}
+						});
+						event.preventDefault();	
+					});
+					
+					$("#follow-no").click(function(e) {
+                        $("#btn-follow").popover("hide");
+						e.preventDefault();
+                    });
+					
+                });
+				
+		  </script>
         </div>
       <!-- InstanceEndEditable --> 
       </div>

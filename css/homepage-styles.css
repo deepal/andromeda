@@ -489,20 +489,20 @@ table tr:hover td {
 	border-left:1px #D7E7FF solid;
 }
 
-.popover{
+.popover-custom{
 	width:300px;
 	max-width:300px;
 	max-height:500px;
 	overflow:auto;
 }
 
-.popover-title{
+.popover-title-custom{
 	text-align:center;
 }
 
 /* Let's get this party started */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 9px;
 }
  
 /* Track */
@@ -523,4 +523,24 @@ table tr:hover td {
 
 .navbar-brand{
 	padding:5px 15px;	
+}
+
+#btn-join{
+	width:125px;	
+}
+
+#join-confirmation ul{
+	
+}
+
+#follow-confirmation ul{
+	
+}
+
+#join-confirmation li{
+	
+}
+
+#follow-confirmation ul{
+	
 }
