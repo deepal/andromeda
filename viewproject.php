@@ -307,15 +307,7 @@
       <!-- /.modal -->
       
      
-     
-      <div id="projectlist" class="panel panel-default">
-        <div class="panel-heading">
-        	<!-- InstanceBeginEditable name="ContentPanelHeading" -->
-          <h2 class="panel-title panel-title-custom">Project Details</h2>
-          <!-- InstanceEndEditable -->
-        </div>
-        <div class="panel-body panel-body-custom"> <span id="notice"></span>
-        <!-- InstanceBeginEditable name="Main-body" -->
+     <!-- InstanceBeginEditable name="Main-body" -->
       <?php
             if(isset($_GET['pid'])){
 				$pid = $_GET['pid'];
@@ -342,6 +334,12 @@
 
 	  
 	  ?>
+        <div id="projectlist" class="panel panel-default">
+        <div class="panel-heading">
+        	
+          <h2 class="panel-title panel-title-custom">Project Details</h2>
+         
+        </div>
         
         <div class="panel-body panel-body-custom"> <span id="notice"></span>
           <div id="project-details" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom">
@@ -428,8 +426,11 @@
                 <li class="spaced-list"><button id="btn-join" 
                 	<?php 
 						if(mysqli_num_rows($joinres)!=0){
-							echo "disabled='disabled' ";
-						}					
+							echo "disabled='disabled' class='btn btn-block btn-default' ";
+						}	
+						else{
+							echo "class='btn btn-block btn-danger' ";	
+						}
 					?>
                 	class="btn  btn-danger" role="button"><span class="glyphicon glyphicon-plus-sign"></span>
 						<?php 
@@ -446,10 +447,13 @@
                 <li><button id="btn-follow" 
 					<?php 
 						if(mysqli_num_rows($followres)!=0){
-							echo "disabled='disabled' ";
-						}					
+							echo "disabled='disabled' class='btn btn-block btn-default' ";
+						}
+						else{
+							echo "class='btn btn-block btn-danger' ";
+						}
 					?>
-                    class="btn btn-block btn-danger" role="button"><span class="glyphicon glyphicon-bookmark"></span>
+                    role="button"><span class="glyphicon glyphicon-bookmark"></span>
                     	<?php 
 							if(mysqli_num_rows($followres)!=0){ 
 								echo "&nbsp;&nbsp;Following";
@@ -485,27 +489,17 @@
           <script>		 
 		  		
 				$(document).ready(function(e) {
-					
-					$("#btn-follow").click(function(e) {
-						$("#btn-join").popover("hide");
-                        e.preventDefault();
-                    });
-					
+					/*
 					$("#btn-follow").popover({
 						html:true,
 						placement:'left',
 						trigger:'click',
 						container:'body',
 						content:$("#follow-confirmation").html()
-						
 					});
 					
-					$("#btn-follow").popover("hide");
 					
-					$("#btn-join").click(function(e) {
-						$("#btn-follow").popover("hide");
-                        e.preventDefault();
-                    });
+					$("#btn-follow").popover("hide");
 					
 					$("#btn-join").popover({
 						html:true,
@@ -515,9 +509,11 @@
 						content:$("#join-confirmation").html()
 						
 					});
-					///////there is an error here  |
-					 ///                           V
-					$('body').on("click","#join-yes",funtion(event){
+					
+					$("#btn-join").popover("hide"); */
+					
+					
+					$("#btn-join").click(function(e) {
 						$.ajax({
 							type:"GET",
 							url:"action/projectactions.php",
@@ -530,25 +526,9 @@
 							}
 						});
 						event.preventDefault();
-					});
-					
-					$("#btn-join").on("click","#join-no",funtion(event){
-						$("#btn-join").popover("hide");
-						e.preventDefault();
-					});
-					
-					
-					$("#btn-join").popover("hide");
-
-                    $("#join-yes").click(function(event){
-						
-					});	
-					
-					$("#join-no").click(function(e) {
-                        
                     });
 					
-					$("#follow-yes").click(function(event){
+					$("#btn-follow").click(function(e) {
 						$.ajax({
 							type:"GET",
 							url:"action/projectactions.php",
@@ -561,20 +541,18 @@
 							}
 						});
 						event.preventDefault();	
-					});
-					
-					$("#follow-no").click(function(e) {
-                        $("#btn-follow").popover("hide");
-						e.preventDefault();
+						
                     });
+					
 					
                 });
 				
 		  </script>
         </div>
-      <!-- InstanceEndEditable --> 
-      </div>
+        
+        </div>
       
+          <!-- InstanceEndEditable --> 
       
     </div>
   	

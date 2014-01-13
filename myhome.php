@@ -1,6 +1,7 @@
 <!doctype html>
 <?php
 	session_start();
+	
 	session_regenerate_id();
 	define("MAX_NO_PER_PAGE",7);
 	require_once("config/portalconfig.php");
@@ -12,7 +13,7 @@
 <head>
 
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>View Profile - Project Portal</title>
+<title>Projects - Project Portal</title>
 <!-- InstanceEndEditable -->
 
 <link href="css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
@@ -244,7 +245,7 @@
         </form>
         
         <!-- InstanceBeginEditable name="content-header-panel" -->
-
+        
         <!-- InstanceEndEditable -->
       </div>
     
@@ -303,64 +304,47 @@
       
      
      <!-- InstanceBeginEditable name="Main-body" -->
-     
-     <div id="projectlist" class="panel panel-default">
-        <div class="panel-heading">
-        	
-          <h2 class="panel-title panel-title-custom">Members</h2>
-         
+      
+      
+      <div id="myhome-pane" class="panel">
+      	<div class="panel-heading panel-title">
+            <ul class="nav nav-tabs" id="tab-header">
+                <li><a href="#myprojects" data-toggle="tab">My Projects</a></li>
+                <li><a href="#following" data-toggle="tab">Following</a></li>
+                <li><a href="#updates" data-toggle="tab">Updates</a></li>
+            </ul>
         </div>
-        	<div id="membersearch-div">
-            	
-            	<form id="member-search">
-                	<div class="input-group">
-                    		<input id="search-m" class="form-control" type="text" placeholder="Search members">
-                        	<span class="input-group-btn"><button id="searchbtn" class="btn btn-info" type="submit" class="form-control">Go</button></span>
-                    </div>
-            	</form>
+        <div class="tab-content panel-body panel-body-custom">
+        	<div class="tab-pane fade in active" id="myprojects">
+            	sdf
             </div>
             
-            <script>
-				$(document).ready(function(e) {
-					$.ajax({
-						type:"GET",
-						url:"action/filter_members.php",
-						success: function(data){
-							$("#membersearch-results").html(data);
-						}
-					});
-				});
-			</script> 	
-                 
-            <div id="membersearch-results">
-           		
+            <div class="tab-pane fade" id="following">
+            	asdf
             </div>
             
-            
-            <script>
-				$(document).ready(function(e) {					
-                    $("#search-m").keyup(function(event){
-						var deepal = $("#search-m").val();
-						$.ajax({
-							type: "GET",
-							url: "action/filter_members.php",
-							data: { search : deepal  },
-							success: function(data){
-								$("#membersearch-results").html(data);
-							}
-						})
-						event.preventDefault();
-					});
-					
-					$("#member-search").submit(function(event){
-						event.preventDefault();
-					});
-					
-                });
-			</script>   
-		
+            <div class="tab-pane fade" id="updates">
+            	updates
+            </div>
+        </div>
       </div>
-      <!-- InstanceEndEditable --> 
+      
+      	<script>
+			$(document).ready(function(e) {
+                $('#tab-header a').click(function (e) {
+				  e.preventDefault();
+				  $(this).tab('show');
+				});
+				
+				
+				$(function () {
+					$('#tab-header a:first').tab('show')
+				});
+            });
+		</script>
+      
+      
+     <!-- InstanceEndEditable --> 
       
     </div>
   	

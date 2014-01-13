@@ -347,17 +347,14 @@
       <!-- /.modal -->
       
      
-     
-      <div id="projectlist" class="panel panel-default">
+     <!-- InstanceBeginEditable name="Main-body" -->
+     <div id="projectlist" class="panel panel-default">
         <div class="panel-heading">
-        	<!-- InstanceBeginEditable name="ContentPanelHeading" -->
+        	
           <h2 class="panel-title panel-title-custom">Recent Project Ideas</h2>
-          <!-- InstanceEndEditable -->
+         
         </div>
-        <div class="panel-body panel-body-custom"> <span id="notice"></span>
-        <!-- InstanceBeginEditable name="Main-body" -->
-     
-
+		<div class="panel-body panel-body-custom">
           <table id="projects-table" class="table-responsive" cellspacing='0'>
             <!-- cellspacing='0' is important, must stay --> 
             
@@ -553,36 +550,7 @@
             
           </table>
           
-          <script type="text/javascript">
-
-          $(document).ready(function() {
-        	    /* create a node for the flip-to number */
-        	    $(".votecard em").clone().appendTo(".votecard div");
-        	    /* increment that by 1 */
-        	    var node = $(".votecard em:last strong")
-        	    node.text(parseInt(node.text())+1);
-        	 
-        	    function flip(obj) {
-        	        obj.prev().find("em").animate({
-        	            top: '-=45'
-        	        }, 200);
-        	        obj.toggleClass("voted",true);
-        	    }
-        	 
-        	    $('.voteaction').bind({
-        	      click: function(event) {
-        	        event.preventDefault()
-        	      },
-        	      mouseup: function() {
-        	        flip($(this));
-        	        $(this).unbind('mouseup');
-        	      }
-        	    });
-        	 
-        	});
-			
-          </script>
-          
+                    
     	
     
           <div id="pagelist">
@@ -702,10 +670,9 @@
 
         </div>
       </div>
-      
-      <!-- InstanceEndEditable --> 
+      	</div>
       </div>
-      
+      <!-- InstanceEndEditable --> 
       
     </div>
   	

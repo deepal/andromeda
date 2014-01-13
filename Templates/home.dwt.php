@@ -345,15 +345,15 @@
       <!-- /.modal -->
       
      
-     
+     <!-- TemplateBeginEditable name="Main-body" -->
       <div id="projectlist" class="panel panel-default">
         <div class="panel-heading">
-        	<!-- TemplateBeginEditable name="ContentPanelHeading" -->
+        	
           <h2 class="panel-title panel-title-custom">Recent Project Ideas</h2>
-          <!-- TemplateEndEditable -->
+         
         </div>
         <div class="panel-body panel-body-custom"> <span id="notice"></span>
-        <!-- TemplateBeginEditable name="Main-body" -->
+        
           <table id="projects-table" class="table-responsive" cellspacing='0'>
             <!-- cellspacing='0' is important, must stay --> 
             	<!-- test -->
@@ -670,9 +670,9 @@
             </div>
           </div>
         </div>
-        <!-- TemplateEndEditable --> 
+         
       </div>
-      
+     <!-- TemplateEndEditable --> 
       
     </div>
   	
