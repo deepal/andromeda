@@ -195,7 +195,7 @@
         <div id="home-link" class="collapse in">
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
             <li><a class="btn-dropdown-item" href="index.php">News Feed</a></li>
-            <li><a class="btn-dropdown-item" href="myhome.php">My Projects</a></li>
+            <li><a class="btn-dropdown-item" href="myhome.php">My Home</a></li>
             <li><a class="btn-dropdown-item" href="viewarch.php">Archievements</a></li>
           </ul>
         </div>
@@ -521,10 +521,11 @@
 								if($tagcount!=0){
 									$tagno=1;
 									while($tgrow=$tagres->fetch_assoc()){
-										echo $tgrow['tag'];	
+										echo "<a href='".$_SERVER['PHP_SELF']."?search-q=".$tgrow['tag']."'>".$tgrow['tag']."</a>";	
 										if($tagno!=$tagcount){
 											echo ", ";
 										}
+										$tagno=$tagno+1;
 									}
 								}
 								echo "</td>";

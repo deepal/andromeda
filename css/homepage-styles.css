@@ -34,7 +34,7 @@ a:selected {text-decoration:none;color:#333333;}
 }
 
 body {
-	padding-top: 70px;
+	padding-top: 48px;
 	background: #F2F4FF;
 	background-attachment:scroll;
 }
@@ -173,12 +173,11 @@ body {
 }
 table a:link {
 	color: #666;
-	font-weight: bold;
 	text-decoration: none !important;
 }
+
 table a:visited {
 	color: #666;
-	font-weight: bold;
 	text-decoration: none !important;
 }
 table a:active, table a:hover {
@@ -208,6 +207,7 @@ table th {
 	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
 	background: -moz-linear-gradient(top, #ededed, #ebebeb);
 }
+
 table th:first-child {
 	text-align: center;
 	padding-left: 20px;
@@ -263,6 +263,7 @@ table td:first-child {
 }
 table td:nth-child(2) {
 	text-align: left;
+	font-weight:bold;
 	/*padding-left:20px;*/
 	border-left: 0;
 }
@@ -306,6 +307,7 @@ table tr:hover td {
 	padding-right:10px;
 	padding-left:15px;
 	margin-left:0;
+	font-weight:normal;
 }
 
 .bottom-panel{
@@ -522,7 +524,7 @@ table tr:hover td {
 }
 
 .navbar-brand{
-	padding:5px 15px;	
+	padding:15px 15px;	
 }
 
 #btn-join{

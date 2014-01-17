@@ -193,7 +193,7 @@
         <div id="home-link" class="collapse in">
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
             <li><a class="btn-dropdown-item" href="index.php">News Feed</a></li>
-            <li><a class="btn-dropdown-item" href="myhome.php">My Projects</a></li>
+            <li><a class="btn-dropdown-item" href="myhome.php">My Home</a></li>
             <li><a class="btn-dropdown-item" href="viewarch.php">Archievements</a></li>
           </ul>
         </div>
