@@ -308,6 +308,8 @@
       
      
      <!-- InstanceBeginEditable name="Main-body" -->
+     
+     
       <?php
             if(isset($_GET['pid'])){
 				$pid = $_GET['pid'];
@@ -333,7 +335,8 @@
 			}
 
 	  
-	  ?>
+	  ?>      
+      
         <div id="projectlist" class="panel panel-default">
         <div class="panel-heading">
         	
@@ -364,7 +367,26 @@
                     
                 </div>
                 <script>
+				
+					(function($){
+						$(document).ready(function(e) {
+                            $.ajax({
+								type:"GET",
+								url:"action/projectactions.php",
+								data:{action='view'},
+								
+								success: function(response){
+									toastr.success(response,":)");
+								}
+								
+							});
+                        });
+					})(jQuery);
+					
 					$(document).ready(function(e) {
+						
+						
+						
                         $("#like-project").click(function(){
 								
 							$.post( "action/likeproject.php" );		
