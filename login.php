@@ -4,9 +4,10 @@
 	session_start();
 	
 	require_once 'config/portalconfig.php';
+	require_once 'oauth/google/google-login.php';
 	
-	echo session_id();
-	if(isset($_SESSION['user'])){
+	//echo session_id();
+	if(isset($_SESSION['user']) or isset($_SESSION['oauth_user']) ){
 		
 		/*
 		if(isset($_SERVER['HTTP_REFERER'])){
@@ -110,7 +111,7 @@
 ?>
 <html>
 	<head>
-    	<title>Login - Project Portal</title>
+    	<title>Login - Andromeda</title>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="css/login-styles.css" rel="stylesheet" type="text/css">
         <script>
@@ -120,7 +121,7 @@
 	<body>
             <div id="login-form">
             	<form id="login" method="post" action="" onSubmit="return validate();">
-                    <h1>Project Portal</h1>
+                    <h1><img src="images/logo.png"></h1>
                     <fieldset id="inputs">
                         <input id="username" name="username" type="text" placeholder="Username" autofocus required>   
                         <input id="password" name="password" type="password" placeholder="Password" required>
@@ -129,7 +130,14 @@
                         <input type="submit" id="submit" value="Login">
                         <a href="">Forgot your password?</a><a href="signup.php">Register</a>
                     </fieldset>
+                    <table>
+                    
+                    
+                        <tr><td><a href="<?php echo $authUrl;?>"><img src="images/social/google.png"></a></td><td><a href=""><img src="images/social/facebook.png"></a></td></tr>
+                        <tr><td><a href=""><img src="images/social/facebook.png"></a></td><td><a href=""><img src="images/social/twitter.png"></a></td></tr>     
+                    </table>
                 </form>
+               	
             </div>
     </body>
 </html>

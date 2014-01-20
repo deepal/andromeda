@@ -167,6 +167,9 @@
                                     if(isset($_SESSION['user'])){
                                         echo $_SESSION['user']['firstname']." ".$_SESSION['user']['lastname']."&nbsp;&nbsp";								
                                     }
+									else if(isset($_SESSION['oauth_user'])){
+										echo $_SESSION['oauth_user']['given_name']." ".$_SESSION['oauth_user']['family_name']."&nbsp;&nbsp";	
+									}
                                     else{
                                         session_commit();
                                         header("location:login.php");							

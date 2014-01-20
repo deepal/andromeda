@@ -4,7 +4,7 @@
 	session_regenerate_id();
 	define("MAX_NO_PER_PAGE",7);
 	require_once("config/portalconfig.php");
-	if(!isset($_SESSION['user'])){
+	if(!isset($_SESSION['user']) and !isset($_SESSION['oauth_user'])){
 		header('location:login.php');	
 	}
 	
@@ -168,6 +168,9 @@
                                     if(isset($_SESSION['user'])){
                                         echo $_SESSION['user']['firstname']." ".$_SESSION['user']['lastname']."&nbsp;&nbsp";								
                                     }
+									else if(isset($_SESSION['oauth_user'])){
+										echo $_SESSION['oauth_user']['given_name']." ".$_SESSION['oauth_user']['family_name']."&nbsp;&nbsp";	
+									}
                                     else{
                                         session_commit();
                                         header("location:login.php");							
