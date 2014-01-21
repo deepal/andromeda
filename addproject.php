@@ -4,11 +4,22 @@
 	session_regenerate_id();
 	require_once("config/dbcon.php");
 
+	if(!isset($_SESSION['login']) || $_SESSION['login']==false){
+		require_once('logout.php');
+	}
+
 	$projecttitle = $_POST['ptitle'];
 	$projectdesc = $_POST['pdesc'];
 	$projectcatagory = (is_null($_POST['pcatagory']) || !isset($_POST['pcatagory']))?0:$_POST['pcatagory'];
 	$projecttags = $_POST['ptags'];
-	$projectauthor = $_SESSION['user']['user_id'];
+	if($_SESSION['login-type']=='regular'){
+		$projectauthor = $_SESSION['user']['user_id'];
+	}
+	else if($_SESSION['login-type']=='oauth'){
+		if($_SESSION['login-provider']=='google'){
+			
+		}
+	}
 	
 	$dbcon = new DBConnection();
 	

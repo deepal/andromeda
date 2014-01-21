@@ -4,7 +4,7 @@
 	session_regenerate_id();
 	define("MAX_NO_PER_PAGE",7);
 	require_once("config/portalconfig.php");
-	if(!isset($_SESSION['user']) and !isset($_SESSION['oauth_user'])){
+	if(!isset($_SESSION['login']) || $_SESSION['login']==false){
 		header('location:login.php');	
 	}
 	
@@ -168,16 +168,17 @@
           <div class="btn-group">
             <button type="submit" class="btn btn-default"> &nbsp;&nbsp<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp
             <?php 
-                                    if(isset($_SESSION['user'])){
-                                        echo $_SESSION['user']['firstname']." ".$_SESSION['user']['lastname']."&nbsp;&nbsp";								
-                                    }
-									else if(isset($_SESSION['oauth_user'])){
-										echo $_SESSION['oauth_user']['given_name']." ".$_SESSION['oauth_user']['family_name']."&nbsp;&nbsp";	
+                                    if(isset($_SESSION['login-type'])){
+                                    	if($_SESSION['login-type']=='regular'){
+											echo $_SESSION['user']['firstname']." ".$_SESSION['user']['lastname'];
+										}
+										else if($_SESSION['login-type']=='oauth'){
+											echo $_SESSION['oauth_user']['name'];
+										}
 									}
-                                    else{
-                                        session_commit();
-                                        header("location:login.php");							
-                                    }
+									else{
+										require_once('logout.php');	
+									}
                                 ?>
             </button>
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-cog"></span> <span class="sr-only">Toggle Dropdown</span> </button>

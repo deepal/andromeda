@@ -2,25 +2,7 @@
 <?php
 
 	session_start();
-	
-	require_once 'config/portalconfig.php';
-	require_once 'oauth/google/google-login.php';
-	
-	//echo session_id();
-	if(isset($_SESSION['user']) or isset($_SESSION['oauth_user']) ){
-		
-		/*
-		if(isset($_SERVER['HTTP_REFERER'])){
-			header('location:'.$_SERVER['HTTP_REFERER']);
-		}
-		else{
-			header('location:home.php');
-			echo "<script>".$_SERVER['HTTP_REFERER']."</script>";
-		}
-		*/
-	}
-	
-	class DBConnection{
+		class DBConnection2{
 		private $con;
 		private $userdata, $result;
 		
@@ -60,7 +42,6 @@
 				break;
 			}
 			
-			#echo $timestamp;
 			return $timestamp;
 		}
 		
@@ -74,16 +55,30 @@
 
 	}
 	
+	require_once 'config/portalconfig.php';
+	require_once 'config/dbcon.php';
+	require_once 'oauth/google/google-login.php';
+	
+	
+	if(isset($_SESSION['login']) && $_SESSION['login']==true){
+		header('location:home.php');
+	}
+	
+
+	
 	class Sessions{
 		public static function setSessionState($userdata){
 			unset($userdata['password']);
 			unset($userdata['timestamp']);
 			$_SESSION['user']=$userdata;
+			$_SESSION['login']=true;
+			$_SESSION['login-type']='regular';
 		}
 	}
 	
-	if(isset($_POST['username']) && isset($_POST['password'])){
-		$dbcon = new DBConnection();
+	
+	if(isset($_POST['username']) && isset($_POST['password']) && !isset($_SESSION['oauth_user'])){
+		$dbcon = new DBConnection2();
 		$dbcon->connect();
 		$username= strip_tags(stripslashes(trim($_POST['username'])));
 		$password = strip_tags(stripcslashes($_POST['password']));
@@ -95,9 +90,6 @@
 				Sessions::setSessionState($user);
 				session_commit();
 				header("location:home.php");
-			}
-			else{
-				echo "user variable is not set!!!";
 			}
 		}
 		else if(mysqli_num_rows($result)==0){
@@ -133,7 +125,7 @@
                     <table>
                     
                     
-                        <tr><td><a href="<?php echo $authUrl;?>"><img src="images/social/google.png"></a></td><td><a href=""><img src="images/social/facebook.png"></a></td></tr>
+                        <tr><td><a href="<?php echo $authUrl;?>"><img src="images/social/google.png"></a></td><td><a href=""><img src="images/social/linkedin.png"></a></td></tr>
                         <tr><td><a href=""><img src="images/social/facebook.png"></a></td><td><a href=""><img src="images/social/twitter.png"></a></td></tr>     
                     </table>
                 </form>
