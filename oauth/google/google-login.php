@@ -38,9 +38,14 @@ if ($client->getAccessToken()) {
 	$_SESSION['login-type']='oauth';
 	$_SESSION['login-provider']='google';
 	
+	$name = $oauthuser['name'];
+	$id = $oauthuser['id'];
+	$provider = 'google';
+	$email = $oauthuser['email'];
+	$profile = $oauthuser['link'];
+	$picture = $oauthuser['picture'];
+	
 	header('location:home.php');
-	
-	
 	
 } else {
   $authUrl = $client->createAuthUrl();

@@ -149,14 +149,25 @@
 <!-- end of notification panels -->
 
 <div id="header-panel">
-  <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="home.php"><span><img src="images/logo.png"></span></a>
-    <ul class="nav navbar-nav navbar-right">
+  <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> 
+  <a class="navbar-brand" href="home.php"><span><img src="images/logo.png"></span></a>
+      <form class="navbar-form navbar-left form-inline searchform wide400px" method="get" role="form" action="home.php">
+        <div class="input-group">
+          <input type="text" class="form-control wide400px" id="search-q" name="search-q" placeholder="Search Projects" value="<?php echo isset($_GET['search-q'])? $_GET['search-q']: "";?>">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default btn-primary sortlist"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+          
+        </div><!-- /input-group --> 
+      
+    </form>
+    <ul class="nav navbar-nav navbar-right"><!--
       <li>
         <ul class="nav nav-pills notifications">
           <li id="notification-item"><a id="notifications" href="" role="button">Notifications&nbsp;&nbsp;<span class="badge pull-right">5</span></span></a></li>
           <li id="inbox-item"><a id="inbox-msg" href="" role="button">Inbox&nbsp;&nbsp;<span class="badge pull-right">5</span></span></a></li>
         </ul>
-      </li>
+      </li>-->
       <script>$('#notif').popover('hide')</script>
       <li class="dropdown">
         <form class="navbar-form" action="profile.php">
@@ -206,6 +217,7 @@
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
             <li><a class="btn-dropdown-item" href="home.php">New Project Ideas</a></li>
             <li><a class="btn-dropdown-item" href="#">Ongoing Projects</a></li>
+            <li><a class="btn-dropdown-item" href="#" data-toggle="modal" data-target="#projectidea"> <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suggest idea</a></li>
           </ul>
         </div>
         <button type="button" class="btn btn-warning btn-block btn-dropdown" data-toggle="collapse" data-target="#users-link"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;People</button>
@@ -229,33 +241,6 @@
     
     <div id="project-listing" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom">
     
-      <div id="control-panel">
-        <div class="form-group suggestproject">
-          <button class="btn btn-success "  data-toggle="modal" data-target="#projectidea"> <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suggest a project idea </button>
-        </div>
-        
-        
-        
-        
-        
-        <form class="form-inline searchform wide400px" method="get" role="form" action="home.php">
-        	<div class="input-group">
-              <input type="text" class="form-control wide400px" id="search-q" name="search-q" placeholder="Search Projects" value="<?php echo isset($_GET['search-q'])? $_GET['search-q']: "";?>">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-default btn-primary sortlist"><span class="glyphicon glyphicon-search"></span></button>
-              </span>
-            </div><!-- /input-group -->  
-        </form>
-        
-        <!-- InstanceBeginEditable name="content-header-panel" -->
-
-        <!-- InstanceEndEditable -->
-      </div>
-    
-	
-	
-    
-      
       <div class="modal fade" id="projectidea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">

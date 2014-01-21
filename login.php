@@ -7,7 +7,7 @@
 		private $userdata, $result;
 		
 		public function connect(){
-			$this->con = new mysqli("localhost","root","","projectportal-bootstrap");
+			$this->con = new mysqli("localhost","root","","andromeda_db");
 			if(!$this->con){
 				die("Could not connect to database ! Error no.".mysqli_errno($this->con));	
 			}
@@ -49,10 +49,6 @@
 			$userdata = $result->fetch_assoc();
 			return $userdata;
 		}
-		
-		
-		
-
 	}
 	
 	require_once 'config/portalconfig.php';
@@ -75,7 +71,6 @@
 			$_SESSION['login-type']='regular';
 		}
 	}
-	
 	
 	if(isset($_POST['username']) && isset($_POST['password']) && !isset($_SESSION['oauth_user'])){
 		$dbcon = new DBConnection2();

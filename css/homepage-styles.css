@@ -7,7 +7,7 @@ a:selected {text-decoration:none;color:#333333;}
 .nav-panel-custom {
 	width: auto;
 	padding: 0px 5px;
-	background:url(../images/graphic-white-grid-wallppaer-for-graphic.jpg);
+	background:#DFDFE1;
 }
 .sidebar-custom {
 	/*height:200px;
@@ -48,9 +48,7 @@ body {
 	margin-right:5px;
 }
 .suggestproject{
-	float: left !important;
-	margin-right: 20px;
-	margin-left: 5px;
+	margin-left:10px;
 }
 #control-panel {
 	clear: both;
@@ -524,7 +522,7 @@ table tr:hover td {
 }
 
 .navbar-brand{
-	padding:15px 15px;	
+	padding:12px 15px 10px 15px;	
 }
 
 #btn-join{
@@ -545,4 +543,30 @@ table tr:hover td {
 
 #follow-confirmation ul{
 	
+}
+
+#myprojects-list{
+	
+}
+#myprojects-list li{
+	padding:10px;
+}
+
+#myprojects-list li:hover{
+	background:#D9EEFF
+}
+
+#followingprojects-list{
+}
+
+#followingprojects-list li{
+	padding:10px;
+}
+
+#followingprojects-list li:hover{
+	background:#D9EEFF;
+}
+
+.contents-custom{
+	padding:0 3px;	
 }

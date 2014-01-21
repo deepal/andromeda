@@ -150,14 +150,25 @@
 <!-- end of notification panels -->
 
 <div id="header-panel">
-  <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> <a class="navbar-brand" href="../home.php"><span><img src="../images/logo.png"></span></a>
-    <ul class="nav navbar-nav navbar-right">
+  <nav class="navbar navbar-default navbar-fixed-top nav-panel-custom" role="navigation"> 
+  <a class="navbar-brand" href="../home.php"><span><img src="../images/logo.png"></span></a>
+      <form class="navbar-form navbar-left form-inline searchform wide400px" method="get" role="form" action="../home.php">
+        <div class="input-group">
+          <input type="text" class="form-control wide400px" id="search-q" name="search-q" placeholder="Search Projects" value="<?php echo isset($_GET['search-q'])? $_GET['search-q']: "";?>">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default btn-primary sortlist"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+          
+        </div><!-- /input-group --> 
+      
+    </form>
+    <ul class="nav navbar-nav navbar-right"><!--
       <li>
         <ul class="nav nav-pills notifications">
           <li id="notification-item"><a id="notifications" href="" role="button">Notifications&nbsp;&nbsp;<span class="badge pull-right">5</span></span></a></li>
           <li id="inbox-item"><a id="inbox-msg" href="" role="button">Inbox&nbsp;&nbsp;<span class="badge pull-right">5</span></span></a></li>
         </ul>
-      </li>
+      </li>-->
       <script>$('#notif').popover('hide')</script>
       <li class="dropdown">
         <form class="navbar-form" action="../profile.php">
@@ -207,6 +218,7 @@
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
             <li><a class="btn-dropdown-item" href="../home.php">New Project Ideas</a></li>
             <li><a class="btn-dropdown-item" href="#">Ongoing Projects</a></li>
+            <li><a class="btn-dropdown-item" href="#" data-toggle="modal" data-target="#projectidea"> <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suggest idea</a></li>
           </ul>
         </div>
         <button type="button" class="btn btn-warning btn-block btn-dropdown" data-toggle="collapse" data-target="#users-link"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;People</button>
@@ -230,75 +242,6 @@
     
     <div id="project-listing" class="col-xs-12 col-sm-9 col-md-9 col-lg-10 contents-custom">
     
-      <div id="control-panel">
-        <div class="form-group suggestproject">
-          <button class="btn btn-success "  data-toggle="modal" data-target="#projectidea"> <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suggest a project idea </button>
-        </div>
-        
-        
-        
-        
-        
-        <form class="form-inline searchform wide400px" method="get" role="form" action="../home.php">
-        	<div class="input-group">
-              <input type="text" class="form-control wide400px" id="search-q" name="search-q" placeholder="Search Projects" value="<?php echo isset($_GET['search-q'])? $_GET['search-q']: "";?>">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-default btn-primary sortlist"><span class="glyphicon glyphicon-search"></span></button>
-              </span>
-            </div><!-- /input-group -->  
-        </form>
-        
-        <!-- TemplateBeginEditable name="content-header-panel" -->
-        <div class="btn-group sortlist">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-sort"></span>&nbsp;&nbsp;Sort&nbsp;&nbsp;<span class="caret"></span> </button>
-          <ul class="dropdown-menu pull-right" role="menu">
-            <?php 
-				
-				if(!isset($_GET['sort'])){
-					$_GET['sort']='mr';	
-				}
-			
-				$params="";
-				foreach ($_GET as $var=>$val){
-					if ($var == 'sort'){
-						$val='mr';
-					}
-					$params=$params.$var."=".$val."&&";
-				}	
-				echo "<li id='sort1'><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-fire'></span>&nbsp;&nbsp;Most recent</a></li>";
-			
-				
-				
-				$params="";
-				foreach ($_GET as $var=>$val){
-						if ($var == 'sort') {
-							$val='tr';
-						}
-						$params=$params.$var."=".$val."&&";
-				}
-				echo "<li id='sort2'><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-star'></span>&nbsp;&nbsp;Top rated</a></li>";
-				
-				
-				
-				$params="";
-				foreach ($_GET as $var=>$val){
-					if ($var == 'sort') {
-						$val='mv';
-					}
-					$params=$params.$var."=".$val."&&";
-				}
-				echo "<li id='sort3'><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-eye-open'></span>&nbsp;&nbsp;Most Viewed</a></li>";
-              
-              ?>
-          </ul>
-        </div>
-        <!-- TemplateEndEditable -->
-      </div>
-    
-	
-	
-    
-      
       <div class="modal fade" id="projectidea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -351,11 +294,57 @@
      
      <!-- TemplateBeginEditable name="Main-body" -->
       <div id="projectlist" class="panel panel-default">
-        <div class="panel-heading">
-        	
-          <h2 class="panel-title panel-title-custom">Recent Project Ideas</h2>
-         
+        <div class="panel-heading panel-heading-custom">
+        	<div style="float:left">
+            	<h2 class="panel-title panel-title-custom">Recent Project Ideas</h2>
+            </div>
+          
+         	<div class="btn-group sortlist">
+          <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-sort"></span>&nbsp;&nbsp;Sort&nbsp;&nbsp;<span class="caret"></span> </button>
+          <ul class="dropdown-menu pull-right sortmenu-custom" role="menu">
+            <?php 
+				
+				if(!isset($_GET['sort'])){
+					$_GET['sort']='mr';	
+				}
+			
+				$params="";
+				foreach ($_GET as $var=>$val){
+					if ($var == 'sort'){
+						$val='mr';
+					}
+					$params=$params.$var."=".$val."&&";
+				}	
+				echo "<li id='sort1'><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-fire'></span>&nbsp;&nbsp;Most recent</a></li>";
+			
+				
+				
+				$params="";
+				foreach ($_GET as $var=>$val){
+						if ($var == 'sort') {
+							$val='tr';
+						}
+						$params=$params.$var."=".$val."&&";
+				}
+				echo "<li id='sort2'><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-star'></span>&nbsp;&nbsp;Top rated</a></li>";
+				
+				
+				
+				$params="";
+				foreach ($_GET as $var=>$val){
+					if ($var == 'sort') {
+						$val='mv';
+					}
+					$params=$params.$var."=".$val."&&";
+				}
+				echo "<li id='sort3'><a href='".$_SERVER['PHP_SELF']."?".$params."'><span class='glyphicon glyphicon-eye-open'></span>&nbsp;&nbsp;Most Viewed</a></li>";
+              
+              ?>
+          </ul>
         </div>
+        	<div style="clear:both"></div>
+        </div>
+        
         <div class="panel-body panel-body-custom"> <span id="notice"></span>
         
           <table id="projects-table" class="table-responsive" cellspacing='0'>
