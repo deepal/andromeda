@@ -101,9 +101,6 @@
     	<title>Login - Andromeda</title>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="css/login-styles.css" rel="stylesheet" type="text/css">
-        <script>
-			
-		</script>
     </head>
 	<body>
             <div id="login-form">
@@ -121,7 +118,7 @@
                     
                     
                         <tr><td><a href="<?php echo $authUrl;?>"><img src="images/social/google.png"></a></td><td><a href=""><img src="images/social/linkedin.png"></a></td></tr>
-                        <tr><td><a href=""><img src="images/social/facebook.png"></a></td><td><a href=""><img src="images/social/twitter.png"></a></td></tr>     
+                        <tr><td><a href=""><img src="images/social/facebook.png"></a></td><td><a href=""><img src="images/social/twitter.png"></a></td></tr>
                     </table>
                 </form>
                	

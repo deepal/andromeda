@@ -45,7 +45,7 @@ if ($client->getAccessToken()) {
 	$profile = $oauthuser['link'];
 	$picture = $oauthuser['picture'];
 	
-	header('location:home.php');
+	#header('location:home.php');
 	
 } else {
   $authUrl = $client->createAuthUrl();

@@ -1,7 +1,6 @@
 <!doctype html>
 <?php
 	session_start();
-	
 	session_regenerate_id();
 	define("MAX_NO_PER_PAGE",7);
 	require_once("../config/portalconfig.php");
@@ -184,7 +183,7 @@
 										}
 									}
 									else{
-										require_once('logout.php');	
+										//require_once('logout.php');	
 									}
                                 ?>
             </button>

@@ -4,7 +4,7 @@
 	session_regenerate_id();
 	define("MAX_NO_PER_PAGE",7);
 	require_once("config/portalconfig.php");
-	if(!isset($_SESSION['login']) || $_SESSION['login']==false){
+	if(!isset($_SESSION['user'])){
 		header('location:login.php');	
 	}
 ?>
@@ -12,7 +12,7 @@
 <head>
 
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>View Profile - Project Portal</title>
+<title>Projects - Project Portal</title>
 <!-- InstanceEndEditable -->
 
 <link href="css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
@@ -292,64 +292,19 @@
       
      
      <!-- InstanceBeginEditable name="Main-body" -->
-     
-     <div id="projectlist" class="panel panel-default">
-        <div class="panel-heading">
-        	
-          <h2 class="panel-title panel-title-custom">Members</h2>
-         
+      <div id="projectlist" class="panel panel-default">
+        <div class="panel-heading panel-heading-custom">
+            	<h2 class="panel-title panel-title-custom">Project Home</h2>
         </div>
-        	<div id="membersearch-div">
-            	
-            	<form id="member-search">
-                	<div class="input-group">
-                    		<input id="search-m" class="form-control" type="text" placeholder="Search members">
-                        	<span class="input-group-btn"><button id="searchbtn" class="btn btn-info" type="submit" class="form-control">Go</button></span>
-                    </div>
-            	</form>
-            </div>
-            
-            <script>
-				$(document).ready(function(e) {
-					$.ajax({
-						type:"GET",
-						url:"action/filter_members.php",
-						success: function(data){
-							$("#membersearch-results").html(data);
-						}
-					});
-				});
-			</script> 	
-                 
-            <div id="membersearch-results">
-           		
-            </div>
-            
-            
-            <script>
-				$(document).ready(function(e) {					
-                    $("#search-m").keyup(function(event){
-						var deepal = $("#search-m").val();
-						$.ajax({
-							type: "GET",
-							url: "action/filter_members.php",
-							data: { search : deepal  },
-							success: function(data){
-								$("#membersearch-results").html(data);
-							}
-						})
-						event.preventDefault();
-					});
-					
-					$("#member-search").submit(function(event){
-						event.preventDefault();
-					});
-					
-                });
-			</script>   
-		
+        
+        <div class="panel-body panel-body-custom"> <span id="notice"></span>
+        	
+        </div>
+         
       </div>
-      <!-- InstanceEndEditable --> 
+      
+      
+     <!-- InstanceEndEditable --> 
       
     </div>
   	

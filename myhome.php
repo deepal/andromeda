@@ -184,7 +184,7 @@
 										}
 									}
 									else{
-										require_once('logout.php');	
+										//require_once('logout.php');	
 									}
                                 ?>
             </button>
@@ -294,7 +294,6 @@
      
      <!-- InstanceBeginEditable name="Main-body" -->
       
-      
       <div id="myhome-pane" class="panel">
       	<div class="panel-heading panel-title">
             <ul class="nav nav-tabs" id="tab-header">
@@ -316,7 +315,7 @@
 					$result = $stmt->get_result();
 					
 					while($row = $result->fetch_assoc()){
-						echo "<a href=''><li>".$row['p_name']."</li></a>";
+						echo "<a href='projecthome.php?pid=".$row['p_id']."'><li>".$row['p_name']."</li></a>";
 					}
 				?>
                 </ol>
@@ -334,7 +333,7 @@
 					$result = $stmt->get_result();
 					
 					while($row = $result->fetch_assoc()){
-						echo "<a href=''><li>".$row['p_name']."</li></a>";
+						echo "<a href='feeds.php?pid=".$row['p_id']."'><li>".$row['p_name']."</li></a>";
 					}
 				?>
                 </ol>

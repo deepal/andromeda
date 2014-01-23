@@ -186,7 +186,7 @@
 										}
 									}
 									else{
-										require_once('logout.php');	
+										//require_once('logout.php');	
 									}
                                 ?>
             </button>
