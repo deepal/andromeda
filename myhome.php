@@ -4,7 +4,7 @@
 	
 	session_regenerate_id();
 	define("MAX_NO_PER_PAGE",7);
-	require_once("config/portalconfig.php");
+	require_once("config/globallconfig.php");
 	if(!isset($_SESSION['login']) || $_SESSION['login']==false){
 		header('location:login.php');	
 	}
@@ -302,41 +302,67 @@
                 <li><a href="#updates" data-toggle="tab">Updates</a></li>
             </ul>
         </div>
-        <div class="tab-content panel-body panel-body-custom">
+        <div class="tab-content panel-body panel-body-custom myhome-body">
+        	
         	<div class="tab-pane fade in active" id="myprojects">
-            	<ol id="myprojects-list">
-            	<?php
-					$userid = $_SESSION['user']['user_id'];
-					if(!$stmt = $con->prepare("select projects.p_id,p_name,p_desc from projects,project_member where project_member.member_id = ? and projects.p_id=project_member.p_id")){
-						die(mysqli_error($con));	
-					}
-					$stmt->bind_param('i',$userid);
-					$stmt->execute();
-					$result = $stmt->get_result();
-					
-					while($row = $result->fetch_assoc()){
-						echo "<a href='projecthome.php?pid=".$row['p_id']."'><li>".$row['p_name']."</li></a>";
-					}
-				?>
-                </ol>
+            	<div id="myprojects-control">
+                    <form class="form-inline">
+                        <button id="btn-check-all" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Check all</button>
+                        <button id="btn-uncheck-all" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-unchecked"></span>&nbsp;&nbsp;Uncheck all</button>
+                        <button id="btn-feature" type="button" role="button" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Feature selected</button>
+                        <button id="btn-leave" type="button" role="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Leave selected</button>
+                        
+                    </form>
+                </div>
+            	
+            	<form id="myprojects-form">
+                    <ul id="myprojects-list">
+                        <?php
+                            $userid = $_SESSION['user']['user_id'];
+                            if(!$stmt = $con->prepare("select projects.p_id,p_name,p_desc from projects,project_member where project_member.member_id = ? and projects.p_id=project_member.p_id")){
+                                die(mysqli_error($con));	
+                            }
+                            $stmt->bind_param('i',$userid);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            
+                            while($row = $result->fetch_assoc()){
+                                echo "<a href='projecthome.php?pid=".$row['p_id']."'><li><label><input type='checkbox' name='chkproject' value='".$row['p_id']."'/></label>".$row['p_name']."</li></a>";
+                            }
+                        ?>
+                    </ul>
+                </form>
             </div>
             
             <div class="tab-pane fade" id="following">
+            
+            	<div id="followingprojects-control">
+                    <form class="form-inline">
+                        <button id="btn-check-all-f" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Check all</button>
+                        <button id="btn-uncheck-all-f" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-unchecked"></span>&nbsp;&nbsp;Uncheck all</button>
+                        <button id="btn-feature-f" type="button" role="button" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Feature selected</button>
+                        <button id="btn-unfollow-f" type="button" role="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;&nbsp;Unfollow selected</button>
+                        
+                    </form>
+                </div>
+            
+            	<form id="followingprojects-form">
             	<ol id="followingprojects-list">
-            	<?php
-					$userid = $_SESSION['user']['user_id'];
-					if(!$stmt = $con->prepare("select projects.p_id,p_name,p_desc from projects,project_follower where project_follower.follower_id = ? and projects.p_id=project_follower.p_id")){
-						die(mysqli_error($con));	
-					}
-					$stmt->bind_param('i',$userid);
-					$stmt->execute();
-					$result = $stmt->get_result();
-					
-					while($row = $result->fetch_assoc()){
-						echo "<a href='feeds.php?pid=".$row['p_id']."'><li>".$row['p_name']."</li></a>";
-					}
-				?>
-                </ol>
+					<?php
+                        $userid = $_SESSION['user']['user_id'];
+                        if(!$stmt = $con->prepare("select projects.p_id,p_name,p_desc from projects,project_follower where project_follower.follower_id = ? and projects.p_id=project_follower.p_id")){
+                            die(mysqli_error($con));	
+                        }
+                        $stmt->bind_param('i',$userid);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        
+                        while($row = $result->fetch_assoc()){
+                            echo "<a href='feeds.php?pid=".$row['p_id']."'><li><label><input type='checkbox' name='chkfproject' value='".$row['p_id']."'/></label>".$row['p_name']."</li></a>";
+                        }
+                    ?>
+                    </ol>
+                </form>
             </div>
             
             <div class="tab-pane fade" id="updates">
@@ -346,7 +372,27 @@
       </div>
       
       	<script>
-			$(document).ready(function(e) {
+			function actionbuttons(){
+				checklist = $("input[name=chkproject]:checked").map(function() {
+					return $(this).val();
+				}).get();
+				
+				console.log(checklist);
+				
+				if (checklist.length!=0) {
+					$('#btn-feature').removeAttr("disabled");
+					$('#btn-leave').removeAttr("disabled");
+				}
+				else{
+					$("#btn-feature").attr("disabled","true");
+					$("#btn-leave").attr("disabled","true");	
+				}	
+			}
+		
+			function updatePageContent(){
+				$("#btn-feature").attr("disabled","true");
+				$("#btn-leave").attr("disabled","true");
+				
                 $('#tab-header a').click(function (e) {
 				  e.preventDefault();
 				  $(this).tab('show');
@@ -356,7 +402,65 @@
 				$(function () {
 					$('#tab-header a:first').tab('show')
 				});
+				
+				var checklist=new Array();
+				
+				actionbuttons();
+				
+				$("input[name=chkproject]").click(function(e) {
+					actionbuttons();
+                });
+				
+				$("#btn-check-all").click(function(e) {
+                    e.preventDefault();
+					$("input[name=chkproject]").prop("checked", true);
+					actionbuttons()
+                });
+				
+				$("#btn-check-all-f").click(function(e) {
+                    e.preventDefault();
+					$("input[name=chkfproject]").prop("checked", true);
+					actionbuttons();
+                });
+				
+				$("#btn-uncheck-all").click(function(e) {
+                    e.preventDefault();
+					$("input[name=chkfproject]").prop("checked", false);
+					actionbuttons()
+                });
+				
+				$("#btn-uncheck-all-f").click(function(e) {
+                    e.preventDefault();
+					$("input[name=chkfproject]").prop("checked", false);
+					actionbuttons();
+                });
+			}
+		
+			$(document).ready(function(e) {
+				updatePageContent();
+				
+				$("#btn-leave").click(function(e) {
+                    e.preventDefault();
+					$.ajax({
+						type: "POST",
+						url:"action/projectactions.php",
+						data:{action:'leave',projects:checklist},
+						
+						success: function(response){
+							$("#myprojects-list").html(response);
+							if(checklist.length==1){
+								toastr.info("You can re-join if you want","You left the project")
+							}
+							else{
+								toastr.info("You can re-join if you want","You left multiple projects")
+							}
+							updatePageContent();
+						}
+					});
+                });
             });
+			
+						
 		</script>
       
       

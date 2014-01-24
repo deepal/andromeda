@@ -3,7 +3,7 @@
 	session_start();
 	session_regenerate_id();
 	define("MAX_NO_PER_PAGE",7);
-	require_once("config/portalconfig.php");
+	require_once("config/globallconfig.php");
 	if(!isset($_SESSION['user'])){
 		header('location:login.php');	
 	}

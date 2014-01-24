@@ -51,13 +51,13 @@
 		}
 	}
 	
-	require_once 'config/portalconfig.php';
+	require_once 'config/globallconfig.php';
 	require_once 'config/dbcon.php';
 	require_once 'oauth/google/google-login.php';
 	
 	
 	if(isset($_SESSION['login']) && $_SESSION['login']==true){
-		header('location:home.php');
+		header('location:$homepage');
 	}
 	
 
@@ -84,7 +84,7 @@
 			if(isset($user)){
 				Sessions::setSessionState($user);
 				session_commit();
-				header("location:home.php");
+				header("location:$homepage");
 			}
 		}
 		else if(mysqli_num_rows($result)==0){

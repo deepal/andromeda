@@ -2,7 +2,7 @@
 <?php
 	session_start();
 	define("MAX_NO_PER_PAGE",7);
-	require_once("config/portalconfig.php");
+	require_once("config/globallconfig.php");
 	if(!isset($_SESSION['login']) || $_SESSION['login']==false){
 		header('location:login.php');	
 	}

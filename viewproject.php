@@ -3,7 +3,7 @@
 	session_start();
 	session_regenerate_id();
 	define("MAX_NO_PER_PAGE",7);
-	require_once("config/portalconfig.php");
+	require_once("config/globallconfig.php");
 	if(!isset($_SESSION['login']) || $_SESSION['login']==false){
 		header('location:login.php');	
 	}
@@ -356,7 +356,7 @@
 					
 					$(document).ready(function(e) {
 						$.ajax({
-								type:"GET",
+								type:"POST",
 								url:"action/projectactions.php",
 								data:{action:'view'}						
 								
@@ -512,7 +512,7 @@
 					
 					$("#btn-join").click(function(e) {
 						$.ajax({
-							type:"GET",
+							type:"POST",
 							url:"action/projectactions.php",
 							data:{action:"join"},
 							
@@ -527,7 +527,7 @@
 					
 					$("#btn-follow").click(function(e) {
 						$.ajax({
-							type:"GET",
+							type:"POST",
 							url:"action/projectactions.php",
 							data:{action:"follow"},
 							

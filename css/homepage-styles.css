@@ -545,26 +545,115 @@ table tr:hover td {
 	
 }
 
-#myprojects-list{
+#myprojects-control{
+	clear:both;
+	background:#EBF7E6;
+	min-height:50px;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	margin-bottom:10px;
+	padding:10px;
+	margin-left:-5px;
+	margin-right:-5px;
+}
+
+#followingprojects-control{
+	clear:both;
+	background:#EBF7E6;
+	min-height:50px;
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	margin-bottom:10px;
+	padding:10px;
+	margin-left:-5px;
+	margin-right:-5px;
+}
+
+#myprojects{
+	clear:both;
+	background:#F9F9F9;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	padding:5px;
+	padding-top:0;
 	
 }
+
+#following{
+	clear:both;
+	background:#F9F9F9;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	padding:5px;
+	padding-top:0;
+}
+
+#myprojects-list{
+	list-style-type:none;
+	padding-left:0;
+}
+
+#myprojects-list ul li{
+	display:inline;	
+}
+
+input[type=checkbox]{
+	pointer-events:none;	
+}
+
 #myprojects-list li{
 	padding:10px;
+	list-style-type:none;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	transition-property:background;
+	transition-duration:1s;
+}
+
+.myhome-body{
+	padding-top:0;	
 }
 
 #myprojects-list li:hover{
-	background:#D9EEFF
+	background:#D9EEFF;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+
+#myprojects-list label{
+	margin-right:20px;	
 }
 
 #followingprojects-list{
+	list-style-type:none;
+	padding-left:0;
+}
+
+#followingprojects-list label{
+	margin-right:20px;	
 }
 
 #followingprojects-list li{
 	padding:10px;
+	list-style-type:none;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	transition-property:background;
+	transition-duration:1s;
 }
 
 #followingprojects-list li:hover{
 	background:#D9EEFF;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
 }
 
 .contents-custom{
