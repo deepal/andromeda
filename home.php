@@ -21,15 +21,15 @@
 <link href="css/homepage-styles.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/toastr.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/bootstrap.icon-large.css" media="screen" rel="stylesheet" type="text/css">
+<link href="css/bootstrap-dialog.css" rel="stylesheet" type="text/css" media="screen">
 <script src="js/bootstrap-tooltip.js" type="text/javascript"></script>
 <script src="js/bootstrap-popover.js" type="text/javascript"></script>
 
-<!--   <link href="css/tablesorter.css" media="screen" rel="stylesheet" type="text/css"> -->
 <script src="js/jquery.js" type="text/javascript"></script>
-<!-- <script type="text/javascript" src="js/jquery.tablesorter.js"></script> -->
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/alert.js"></script>
 <script src="js/toastr.js" type="text/javascript"></script>
+<script src="js/bootstrap-dialog.js" type="text/javascript"></script>
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
 </head>
@@ -345,7 +345,13 @@
         </div>
         	<div style="clear:both"></div>
         </div>
+        
 		<div class="panel-body panel-body-custom">
+        	
+            <div id="notice">
+            
+            </div>
+            
           <table id="projects-table" class="table-responsive" cellspacing='0'>
             <!-- cellspacing='0' is important, must stay --> 
             
@@ -542,7 +548,7 @@
             
           </table>
           
-                    
+                  
     	
     
           <div id="pagelist">

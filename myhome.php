@@ -13,22 +13,22 @@
 <head>
 
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Projects - Project Portal</title>
+<title>Projects - Andromeda</title>
 <!-- InstanceEndEditable -->
 
 <link href="css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/homepage-styles.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/toastr.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/bootstrap.icon-large.css" media="screen" rel="stylesheet" type="text/css">
+<link href="css/bootstrap-dialog.css" rel="stylesheet" type="text/css" media="screen">
 <script src="js/bootstrap-tooltip.js" type="text/javascript"></script>
 <script src="js/bootstrap-popover.js" type="text/javascript"></script>
 
-<!--   <link href="css/tablesorter.css" media="screen" rel="stylesheet" type="text/css"> -->
 <script src="js/jquery.js" type="text/javascript"></script>
-<!-- <script type="text/javascript" src="js/jquery.tablesorter.js"></script> -->
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/alert.js"></script>
 <script src="js/toastr.js" type="text/javascript"></script>
+<script src="js/bootstrap-dialog.js" type="text/javascript"></script>
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
 </head>
@@ -307,10 +307,12 @@
         	<div class="tab-pane fade in active" id="myprojects">
             	<div id="myprojects-control">
                     <form class="form-inline">
-                        <button id="btn-check-all" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Check all</button>
-                        <button id="btn-uncheck-all" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-unchecked"></span>&nbsp;&nbsp;Uncheck all</button>
                         <button id="btn-feature" type="button" role="button" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Feature selected</button>
                         <button id="btn-leave" type="button" role="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Leave selected</button>
+                        <span class="pull-right">
+                            <button id="btn-check-all" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Check all</button>
+                            <button id="btn-uncheck-all" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-unchecked"></span>&nbsp;&nbsp;Uncheck all</button>
+                        </span>
                         
                     </form>
                 </div>
@@ -338,10 +340,12 @@
             
             	<div id="followingprojects-control">
                     <form class="form-inline">
-                        <button id="btn-check-all-f" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Check all</button>
-                        <button id="btn-uncheck-all-f" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-unchecked"></span>&nbsp;&nbsp;Uncheck all</button>
                         <button id="btn-feature-f" type="button" role="button" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Feature selected</button>
                         <button id="btn-unfollow-f" type="button" role="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;&nbsp;Unfollow selected</button>
+                        <span class="pull-right">
+                        	<button id="btn-check-all-f" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Check all</button>
+                        	<button id="btn-uncheck-all-f" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-unchecked"></span>&nbsp;&nbsp;Uncheck all</button>
+                        </span>
                         
                     </form>
                 </div>
@@ -372,10 +376,30 @@
       </div>
       
       	<script>
+			
+			function actionbuttonsf(){
+				
+				checklistf = $("input[name=chkfproject]:checked").map(function() {
+					return $(this).val();
+				}).get();
+				
+				console.log(checklistf);
+				
+				if (checklistf.length!=0) {
+					$('#btn-feature-f').removeAttr("disabled");
+					$('#btn-unfollow-f').removeAttr("disabled");
+				}
+				else{
+					$("#btn-feature-f").attr("disabled","true");
+					$("#btn-unfollow-f").attr("disabled","true");	
+				}	
+			}
+		
 			function actionbuttons(){
 				checklist = $("input[name=chkproject]:checked").map(function() {
 					return $(this).val();
 				}).get();
+				
 				
 				console.log(checklist);
 				
@@ -386,7 +410,37 @@
 				else{
 					$("#btn-feature").attr("disabled","true");
 					$("#btn-leave").attr("disabled","true");	
-				}	
+				}
+			}
+			
+			function updatePageContentf(){
+				$("#btn-feature-f").attr("disabled","true");
+				$("#btn-unfollow-f").attr("disabled","true");
+				
+				$('#tab-header a').click(function (e) {
+				  e.preventDefault();
+				  $(this).tab('show');
+				});
+				
+				var checklistf=new Array();
+				
+				actionbuttonsf();
+				
+				$("input[name=chkfproject]").click(function(e) {
+					actionbuttonsf();
+                });
+				
+				$("#btn-check-all-f").click(function(e) {
+                    e.preventDefault();
+					$("input[name=chkfproject]").prop("checked", true);
+					actionbuttonsf();
+                });
+				
+				$("#btn-uncheck-all-f").click(function(e) {
+                    e.preventDefault();
+					$("input[name=chkfproject]").prop("checked", false);
+					actionbuttonsf();
+                });
 			}
 		
 			function updatePageContent(){
@@ -397,7 +451,6 @@
 				  e.preventDefault();
 				  $(this).tab('show');
 				});
-				
 				
 				$(function () {
 					$('#tab-header a:first').tab('show')
@@ -414,50 +467,83 @@
 				$("#btn-check-all").click(function(e) {
                     e.preventDefault();
 					$("input[name=chkproject]").prop("checked", true);
-					actionbuttons()
-                });
-				
-				$("#btn-check-all-f").click(function(e) {
-                    e.preventDefault();
-					$("input[name=chkfproject]").prop("checked", true);
 					actionbuttons();
                 });
 				
 				$("#btn-uncheck-all").click(function(e) {
                     e.preventDefault();
-					$("input[name=chkfproject]").prop("checked", false);
-					actionbuttons()
-                });
-				
-				$("#btn-uncheck-all-f").click(function(e) {
-                    e.preventDefault();
-					$("input[name=chkfproject]").prop("checked", false);
+					$("input[name=chkproject]").prop("checked", false);
 					actionbuttons();
                 });
+				
 			}
 		
 			$(document).ready(function(e) {
 				updatePageContent();
+				updatePageContentf();
 				
 				$("#btn-leave").click(function(e) {
                     e.preventDefault();
-					$.ajax({
-						type: "POST",
-						url:"action/projectactions.php",
-						data:{action:'leave',projects:checklist},
-						
-						success: function(response){
-							$("#myprojects-list").html(response);
-							if(checklist.length==1){
-								toastr.info("You can re-join if you want","You left the project")
-							}
-							else{
-								toastr.info("You can re-join if you want","You left multiple projects")
-							}
-							updatePageContent();
+					var confirmMessage = "You are going to leave selected project(s). You will no longer be able to post updates. Are you sure you want to unfollow?";
+					BootstrapDialog.warningconfirm(confirmMessage, function(result){
+						if(result) {
+							$.ajax({
+								type: "POST",
+								url:"action/projectactions.php",
+								data:{action:'leave',projects:checklist},
+								
+								success: function(response){
+									$("#myprojects-list").html(response);
+									if(checklist.length==1){
+										toastr.info("You can no longer post updates for left project","You left the project")
+									}
+									else{
+										toastr.info("You can no longer post updates for left projects","You left multiple projects")
+									}
+									updatePageContent();
+								}
+							});
 						}
 					});
                 });
+				
+				$("#btn-unfollow-f").click(function(e) {
+                    e.preventDefault();
+					var confirmMessage = "You are going to unfollow selected project(s). You will no loger receive updates from the selected project(s). Are you sure you want to unfollow?";
+					BootstrapDialog.warningconfirm(confirmMessage, function(result){
+						if(result) {
+							$.ajax({
+								type: "POST",
+								url:"action/projectactions.php",
+								data:{action:'unfollow',projects:checklistf},
+								
+								success: function(response){
+									$("#followingprojects-list").html(response);
+									if(checklistf.length==1){
+										toastr.info("You will no longer receive updates from unfollowed project","You unfollowed the project");
+										console.log(checklistf.length);
+									}
+									else{
+										toastr.info("You will no longer receive updates from unfollowed projects","You unfollowed multiple projects");
+										console.log(checklistf.length);
+									}
+									updatePageContentf();
+									$(function () {
+										$('#tab-header a[href="#following"]').tab('show');
+									});
+								}
+							});
+						}
+					});
+					
+                });
+				
+				$("#btn-feature-f").click(function(e) {
+					e.preventDefault();
+					;
+				});
+				
+				
             });
 			
 						

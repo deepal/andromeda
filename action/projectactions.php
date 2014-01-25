@@ -94,6 +94,30 @@
 	}
 	
 	function unfollowProjects(){
+		require_once("../config/dbcon.php");
+		$projectlist = $_POST['projects'];
+		$dbcon = new DBConnection();
+		$userid = $_SESSION['user']['user_id'];
+		$con = $dbcon->connect();
+		$q = "DELETE FROM project_follower WHERE p_id = ? and follower_id = ?";
+		foreach($projectlist as $projectid){
+			if(!$stmt=$con->prepare($q)){
+				die(mysqli_errno($con));
+			}
+			$stmt->bind_param("ii",$projectid,$userid);
+			$stmt->execute();	
+		}
+		//now lets update the myprojects list
+		$userid = $_SESSION['user']['user_id'];
+		if(!$stmt = $con->prepare("select projects.p_id,p_name,p_desc from projects,project_follower where project_follower.follower_id = ? and projects.p_id=project_follower.p_id")){
+			die(mysqli_error($con));	
+		}
+		$stmt->bind_param('i',$userid);
+		$stmt->execute();
+		$result = $stmt->get_result();
 		
+		while($row = $result->fetch_assoc()){
+			echo "<a href='projecthome.php?pid=".$row['p_id']."'><li><label><input type='checkbox' name='chkfproject' value='".$row['p_id']."'/></label>".$row['p_name']."</li></a>";
+		}
 	}
 ?>
