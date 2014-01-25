@@ -10,7 +10,7 @@
 	}
 ?>
 <html><!-- InstanceBegin template="/Templates/home.dwt.php" codeOutsideHTMLIsLocked="false" -->
-<head>
+<head> 
 
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Projects - Andromeda</title>
@@ -23,6 +23,14 @@
 <link href="css/bootstrap-dialog.css" rel="stylesheet" type="text/css" media="screen">
 <script src="js/bootstrap-tooltip.js" type="text/javascript"></script>
 <script src="js/bootstrap-popover.js" type="text/javascript"></script>
+<script src="js/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script>
+        tinymce.init({
+			selector:"textarea"
+		
+		});
+		
+</script>
 
 <script src="js/jquery.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
@@ -216,9 +224,10 @@
         <button type="button" class="btn btn-success btn-block btn-dropdown" data-toggle="collapse" data-target="#projects"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Projects</button>
         <div id="projects" class="collapse in">
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
-            <li><a class="btn-dropdown-item" href="home.php">New Project Ideas</a></li>
+            <li><a class="btn-dropdown-item" href="home.php">Project Ideas</a></li>
             <li><a class="btn-dropdown-item" href="#">Ongoing Projects</a></li>
-            <li><a class="btn-dropdown-item" href="#" data-toggle="modal" data-target="#projectidea"> <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suggest idea</a></li>
+            <li><a class="btn-dropdown-item" href="#" data-toggle="modal" data-target="#projectidea"> <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Suggest Free idea</a></li>
+            <li><a class="btn-dropdown-item" href="academic/newproject.php"> <span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;Start Academic Project</a></li>
           </ul>
         </div>
         <button type="button" class="btn btn-warning btn-block btn-dropdown" data-toggle="collapse" data-target="#users-link"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;People</button>
@@ -228,6 +237,7 @@
             <li><a class="btn-dropdown-item" href="#">Ask a question</a></li>
           </ul>
         </div>
+        <!--
         <button type="button" class="btn btn-info btn-block btn-dropdown custom-color" data-toggle="collapse" data-target="#resources"><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;Resources</button>
         <div id="resources" class="collapse in">
           <ul class="nav nav-pills nav-stacked list-group collapse-div">
@@ -235,6 +245,7 @@
             <li><a class="btn-dropdown-item" href="#">Sharing Center</a></li>
           </ul>
         </div>
+        -->
       </div>
     </div>
     

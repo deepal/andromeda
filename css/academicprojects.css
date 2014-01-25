@@ -1,0 +1,39 @@
+#newacademic-form{
+	width:90%;
+	min-width:700px;	
+}
+
+#newacademic-form div[class=form-group]{
+	margin-bottom:25px;	
+}
+
+#newacademic-form textarea{
+	max-width:900px;	
+}
+
+#newacademic-form button[type=submit]{
+	width:200px;
+	margin: 5px auto;	
+}
+
+#newacademic-form button[type=submit] span{
+	margin-right:10px;	
+}
+
+#addmentors-btn,#addmembers-btn{
+	margin-left:20px;
+}
+
+.note{
+	font-style:italic;
+	font-size:11px;	
+}
+
+#pcatagory{
+	width:300px;	
+}
+
+#pmodule{
+	width:200px;	
+}
+
