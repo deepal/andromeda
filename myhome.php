@@ -308,7 +308,8 @@
       <div id="myhome-pane" class="panel">
       	<div class="panel-heading panel-title">
             <ul class="nav nav-tabs" id="tab-header">
-                <li><a href="#myprojects" data-toggle="tab">My Projects</a></li>
+                <li><a href="#myprojects" data-toggle="tab">Free Projects</a></li>
+                <li><a href="#academicprojects" data-toggle="tab">Academic Projects</a></li>
                 <li><a href="#following" data-toggle="tab">Following</a></li>
                 <li><a href="#updates" data-toggle="tab">Updates</a></li>
             </ul>
@@ -382,6 +383,35 @@
             
             <div class="tab-pane fade" id="updates">
             	updates
+            </div>
+            
+            <div class="tab-pane fade" id="academicprojects">
+            	<!--<div id="academicprojects-control">
+                    <form class="form-inline">
+                        <button id="btn-feature-a" type="button" role="button" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;Feature selected</button>
+                        <button id="btn-unfollow-a" type="button" role="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;&nbsp;Unfollow selected</button>
+                        <span class="pull-right">
+                        	<button id="btn-check-all-a" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Check all</button>
+                        	<button id="btn-uncheck-all-a" type="button" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-unchecked"></span>&nbsp;&nbsp;Uncheck all</button>
+                        </span>
+                    </form>
+                </div>-->
+                
+                <div id="academicprojects-container">
+                	<a href=""><div class='well well-sm acproject-tile'>
+                    	<div class='acproject-header'>Project Management System</div>
+                        <div class="acproject-module">(CS1234 Database Systems)</div>
+                        <div class='acproject-desc'>this is the description</div>
+                        
+                    </div></a>
+                    
+                    <a href=""><div class='well well-sm acproject-tile'>
+                    	<div class='acproject-header'>Project Management System</div>
+                        <div class="acproject-module">(CS1234 Database Systems)</div>
+                        <div class='acproject-desc'>this is the description</div>
+                        
+                    </div></a>
+                </div>
             </div>
         </div>
       </div>
@@ -495,7 +525,7 @@
 				
 				$("#btn-leave").click(function(e) {
                     e.preventDefault();
-					var confirmMessage = "You are going to leave selected project(s). You will no longer be able to post updates. Are you sure you want to unfollow?";
+					var confirmMessage = "You are going to leave selected project(s). You will no longer be able to post updates. Are you sure you want to leave?";
 					BootstrapDialog.warningconfirm(confirmMessage, function(result){
 						if(result) {
 							$.ajax({

@@ -14,6 +14,7 @@
 
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Projects - Project Portal</title>
+<link href="css/tablestyle1.css" rel="stylesheet" type="text/css" media="screen">
 
      <!-- InstanceEndEditable -->
 
