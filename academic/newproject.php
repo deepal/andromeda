@@ -306,6 +306,9 @@
       
      
      <!-- InstanceBeginEditable name="Main-body" -->
+     <?php
+	 	require_once("../config/dbcon.php");
+	 ?>
       <div id="projectlist" class="panel panel-default">
         <div class="panel-heading panel-heading-custom">
             	<h1 class="panel-title">New Academic Project</h1>
@@ -319,10 +322,20 @@
                     <input class="form-control" type="text" id="pname" name="pname"/>
                 </div>
                 <div class="form-group">
-                	<label for="pmodule">Academic Module Code</label>
+                	<label for="pmodule">Academic Module</label>
                     <select class="form-control" name="pmodule" id="pmodule">
-                    	<?
-							
+                    	<?php
+							$result = mysqli_query($con,"select * from academic_modules order by module_code");
+							if(!$result){
+								die(mysqli_error($con));
+							}
+							echo mysqli_num_rows($result);
+							while($row = $result->fetch_assoc()){
+								echo "<option value='".$row['module_code']."'>";
+								echo $row['module_code'];
+								echo " - ";
+								echo $row['module_name']."</option>";
+							}
 						?>
                     </select>
                 </div>
@@ -345,7 +358,6 @@
                 	<label for="pcatagory">Catagory</label>
                     <select id="pcatagory" name="pcatagory" class="form-control">
 						<?php
-                            require_once("../config/dbcon.php");
                             $dbcon = new DBConnection();
                             $con = $dbcon->connect();
                             $res = mysqli_query($con,"select * from catagories order by cat_name");
@@ -365,14 +377,6 @@
                     </div>
                 </div>
                 
-                <div class="form-group">
-                	<label for="pmentors">Add Members</label>
-                    <button id="addmentors-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus-sign"></span></button>
-                    <div id="mentorslist-div">
-                    	<!-- content is included through scripts -->
-                        <span class="note">No one is assigned as mentor yet</span>
-                    </div>
-                </div>
                 
                 <div class="form-group">
                 	<button type="submit" class="form-control btn btn-primary"><span class='glyphicon glyphicon-play'></span>Start Project</button>
@@ -382,6 +386,7 @@
             </form>
           
         </div>
+        
       </div>
      <!-- InstanceEndEditable --> 
       

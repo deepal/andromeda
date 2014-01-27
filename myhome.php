@@ -397,7 +397,7 @@
                     </form>
                 </div>-->
                 
-                <div id="academicprojects-container">
+                <div class="academicprojects-container">
                 	<a href=""><div class='well well-sm acproject-tile'>
                     	<div class='acproject-header'>Project Management System</div>
                         <div class="acproject-module">(CS1234 Database Systems)</div>
@@ -409,7 +409,6 @@
                     	<div class='acproject-header'>Project Management System</div>
                         <div class="acproject-module">(CS1234 Database Systems)</div>
                         <div class='acproject-desc'>this is the description</div>
-                        
                     </div></a>
                 </div>
             </div>
@@ -417,9 +416,7 @@
       </div>
       
       	<script>
-			
 			function actionbuttonsf(){
-				
 				checklistf = $("input[name=chkfproject]:checked").map(function() {
 					return $(this).val();
 				}).get();
@@ -440,7 +437,6 @@
 				checklist = $("input[name=chkproject]:checked").map(function() {
 					return $(this).val();
 				}).get();
-				
 				
 				console.log(checklist);
 				
@@ -516,7 +512,6 @@
 					$("input[name=chkproject]").prop("checked", false);
 					actionbuttons();
                 });
-				
 			}
 		
 			$(document).ready(function(e) {
@@ -576,15 +571,11 @@
 							});
 						}
 					});
-					
                 });
 				
 				$("#btn-feature-f").click(function(e) {
 					e.preventDefault();
-					;
 				});
-				
-				
             });
 			
 						
